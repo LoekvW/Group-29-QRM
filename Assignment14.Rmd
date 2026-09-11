@@ -113,7 +113,7 @@ f. Create a scatterplot of with the runtime of movies on the x-axis and the aver
 For each step, you should provide first all the code you used to answer the question and then formulate an answer using full sentences.
 
 *Step a*
-After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
+
 ```{r}
 library(readr)
 
@@ -128,9 +128,7 @@ min(movies1$profits)
 
 ```
 
-**Your Answer:**
-
-Write your formulated response here.
+**Your Answer: After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
 
 *Step b*
 
