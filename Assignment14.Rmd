@@ -95,19 +95,32 @@ and
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
 a. Create the variable profits as the revenue of a movie minus its budget. Report its mean, median, maximum, and minimum. \textbf{[2 points]}
+
 b. Which movie has the highest profits in your data set and how much are these profits. Which movie has the lowest and how much are its profits? If multiple movies have the exact same highest or lowest profits, give only one example. \textbf{[2 points]}
+
 c. Create a boxplot of the variable profits. Make sure it has an appropriate title, and appropriate titles and labels for the x- and y-axis. Give Q1, Q2, Q3, and Q4. What does this tell you about the nature of making money in the movies industry? \textbf{[2 points]}
+
 d. Add a new variable to your data set the log of profits. When creating this variable, what happens to movies for which profits is zero or negative? What then happens when you calculate the mean of log of profits? \textbf{[2 points]}
+
 e. For movies that have a profit of zero or less, replace log of profits with "NA". What is now the mean of log of profits? Create a boxplot for log of profits, again with an appropriate title, x- and y-axis labels. How does it compare to the boxplot you made under c.)? \textbf{[2 points]}
+
 f. Create a scatterplot of with the runtime of movies on the x-axis and the average vote of movies on the y-axis. What do you conclude from the scatterplot? Are movies with a longer runtime considered worse or better by the audience, or does the audience not have a preference? Why do you think this is the case? \textbf{[2 points]}  
 
 For each step, you should provide first all the code you used to answer the question and then formulate an answer using full sentences.
 
 *Step a*
-
+After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
 ```{r}
+library(readr)
 
-#WRITE YOUR CODE HERE
+movies1 <- read_tsv("movies1.tsv", show_col_types = FALSE)
+
+movies1$profits <- movies1$revenue - movies1$budget
+
+mean(movies1$profits)
+median(movies1$profits)
+max(movies1$profits)
+min(movies1$profits)
 
 ```
 
