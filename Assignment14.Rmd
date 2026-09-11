@@ -133,14 +133,20 @@ min(movies1$profits)
 *Step b*
 
 ```{r}
+movies1$profit <- movies1$revenue - movies1$budget
 
-#WRITE YOUR CODE HERE
+highest_profit_movie <- movies1[which.max(movies1$profit), ]
+highest_profit_movie[, c("title", "profit")]
+
+lowest_profit_movie <- movies1[which.min(movies1$profit), ]
+lowest_profit_movie[, c("title", "profit")]
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The highest profit is Avatar, which has a profit of 2,550,965,087 dollars
+The lowest profit is Mighty Joe Young, which has a loss of 90,000,000 dollars
 
 *Step c*
 
