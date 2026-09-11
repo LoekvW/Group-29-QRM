@@ -153,8 +153,18 @@ The lowest profit is Mighty Joe Young, which has a loss of 90,000,000 dollars
 *Step c*
 
 ```{r}
+library(ggplot2)
+movies1$profit_millions <- (movies1$revenue - movies1$budget) / 1e6
+quantile(movies1$profit_millions * 1e6, na.rm = TRUE)
 
-#WRITE YOUR CODE HERE
+ggplot(movies1, aes(x = "", y = profit_millions)) +
+  geom_boxplot(fill = "lightblue", color = "darkblue", outlier.color = "red") +
+  labs(
+    title = "Distribution of Movie Profits",
+    x = "Movies",
+    y = "Profit (in Millions USD)"
+  ) +
+  theme_minimal()
 
 ```
 
