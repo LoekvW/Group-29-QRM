@@ -113,7 +113,7 @@ f. Create a scatterplot of with the runtime of movies on the x-axis and the aver
 For each step, you should provide first all the code you used to answer the question and then formulate an answer using full sentences.
 
 *Step a*
-After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
+
 ```{r}
 library(readr)
 
@@ -128,9 +128,7 @@ min(movies1$profits)
 
 ```
 
-**Your Answer:**
-
-Write your formulated response here.
+**Your Answer: After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
 
 *Step b*
 
@@ -176,13 +174,16 @@ Write your formulated response here.
 
 ```{r}
 
-#WRITE YOUR CODE HERE
+movies1$logprofits <- log(movies1$profits)
+mean(movies1$logprofits)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+When we take the log of profits, movies with a profit of exactly zero end up as -Inf, since the log of zero is undefined and trends toward negative infinity. Movies with negative profits (losses) turn into NaN, because you can't take the log of a negative number at all. R even throws a warning about this, saying "NaNs produced." Since 116 of the 505 movies in the data set have profits of zero or less, all of these rows get one of these problematic values instead of a real number.
+
+Because of this, when we calculate the mean of logprofits, the result is NaN. R can't average a column that contains undefined values like NaN and -Inf alongside normal numbers, so the whole calculation breaks down, even though most of the individual values are perfectly fine..
 
 *Step e*
 
