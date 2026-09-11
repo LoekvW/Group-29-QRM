@@ -1,5 +1,4 @@
 ---
-aaaa
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
 author: "Fill in your group number and names here"
