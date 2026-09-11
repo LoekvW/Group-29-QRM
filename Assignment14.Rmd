@@ -66,7 +66,6 @@ Each week consists of 1, 2, or 3 subquestions. The total amount of points you ca
 ```{r}
 library(readr)
 movies1 <- read_tsv("movies1.tsv")
-nobs(movies1)
 nrow(movies1)
 ncol(movies1)
 
@@ -83,15 +82,20 @@ it has
 2. Which of the following types of variables are present in your data set? (i) nominal; (ii) ordinal; (iii); interval; (iv) ratio. If present, name one example of such a variable present in your data set. \textbf{[4 points]}
 
 ```{r}
-#WRITE YOUR CODE HERE
+str(movies1)
+summary(movies1)
+head(movies1)
 ```
 
 **Your Answer:**
 
 Write your response here.
-It has 19 variables
-it has 505 observations
-and
+All four data types are present
+Nominal - genre
+ordinal - release_month
+interval - release_date
+ratio - budget
+
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
