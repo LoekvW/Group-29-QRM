@@ -61,7 +61,7 @@ Each week consists of 1, 2, or 3 subquestions. The total amount of points you ca
 # Week 1 
 
 1.  Find the dataset “movies1.tsv” on Canvas. Describe your data set: How many observations does it have. How many variables are there? How many subjects?   What consists of a subject? \textbf{[4 points]}
-
+njb
 ```{r}
 library(readr)
 movies1 <- read_tsv("movies1.tsv")
