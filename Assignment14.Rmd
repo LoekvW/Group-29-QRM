@@ -152,23 +152,22 @@ The lowest profit is Mighty Joe Young, which has a loss of 90,000,000 dollars
 
 ```{r}
 library(ggplot2)
-movies1$profit_millions <- (movies1$revenue - movies1$budget) / 1e6
-quantile(movies1$profit_millions * 1e6, na.rm = TRUE)
+movies1$profit <- movies1$revenue - movies1$budget
+quantile(movies1$profit, na.rm = TRUE)
 
-ggplot(movies1, aes(x = "", y = profit_millions)) +
-  geom_boxplot(fill = "lightblue", color = "darkblue", outlier.color = "red") +
+ggplot(movies1, aes(x = "", y = profit)) +
+  geom_boxplot(fill = "gray", color = "black", outlier.color = "red") +
   labs(
     title = "Distribution of Movie Profits",
     x = "Movies",
-    y = "Profit (in Millions USD)"
+    y = "Profit (USD)"
   ) +
   theme_minimal()
 
 ```
 
 **Your Answer:**
-
-Write your formulated response here.
+The movie industry is very high risk high reward, whilst most movies either break even or make a small profit, or a small loss, only a low amount of movies actually make a large profit
 
 *Step d*
 
@@ -188,14 +187,27 @@ Because of this, when we calculate the mean of logprofits, the result is NaN. R 
 *Step e*
 
 ```{r}
+movies1$profit <- movies1$revenue - movies1$budget
+movies1$log_profit <- log(movies1$profit)
+movies1$log_profit[movies1$profit <= 0] <- NA
+mean_log_profit <- mean(movies1$log_profit, na.rm = TRUE)
+mean_log_profit
 
-#WRITE YOUR CODE HERE
+ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
+  geom_boxplot(fill = "gray", color = "black", outlier.color = "red") +
+  labs(
+    title = "Distribution of Log-Transformed Movie Profits",
+    x = "Movies (Profitable Only)",
+    y = "Log of Profit"
+  ) +
+  theme_minimal()
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The boxplot in C had a lot of massive outliers, whilst this one is a bit more centered arount its median.
+plus the boxplot in C had a lot more movies, since we deleted all the once making a loss or breaking even
 
 *Step f*
 
