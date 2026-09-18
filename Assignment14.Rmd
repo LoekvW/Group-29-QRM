@@ -231,11 +231,9 @@ So overall, audiences seem to have a slight preference for longer movies, but it
 
 **Your Answer:**
 
-Write your formulated response here.
-It is a sample of a larger population, the full population would include every single movie made globally, and since this dataset only includes 505 movies, it is safe to say that it is a sample
+It is a sample of a larger population, the full population would include every single movie made globally, and since this dataset only includes 505 movies, it is a sample.
 
 2
-
 a.  For which actor in your data set do you observe the most movies? \textbf{[2 points]} 
 b.  What is the average revenue of the movie in which this actor plays and does the revenue lie above or below the revenue of an average movie according to your data set? \textbf{[2 points]}  
 c.  How trustworthy do you consider your conclusion to answer 2b? Use the term "law of large numbers" in your explanation. \textbf{[2 points]} 
@@ -252,7 +250,7 @@ most_common_actor <- names(which.max(amount_actor))
 ```
 
 **Your Answer:**
-The actor with the most movies (in this sample) is Bruce Willis who has 8 movies (in this sample)
+The actor with the most movies (in this sample) is Bruce Willis who has 8 movies (in this sample).
 
 *step b*
 
@@ -266,10 +264,10 @@ Average_Revenue <- mean(movies1$revenue, na.rm = TRUE)
 
 **Your Answer:**
 
-the average revenue for a Bruce Willis film is 116,280,089.57 dollars
-The average revenue for all the movies is 94,815,481.64 dollars
+The average revenue for a Bruce Willis film is 116,280,089.57 U.S. Dollars
+The average revenue for all the movies is 94,815,481.64 U.S. Dollars
 
-So the average Bruce Willis movie generates more revenue than the average movie from this sample
+This means that the average Bruce Willis movie generates more revenue than the average movie from this sample.
 
 *step c*
 
@@ -280,7 +278,7 @@ So the average Bruce Willis movie generates more revenue than the average movie 
 
 **Your Answer:**
 
-Write your formulated response here.
+
 It is not very trustworthy since this sample is only a small percentage of all movies made.
 According to the law of large numbers, the more movies you add to the sample, the closer you would get to the 'true mean'. 
 And since we are only analyzing 505 movies and 7 Bruce Willis movies, the possibility is very large that the answer is distorted. (e.g. there could be one massive outlier which manipulates the outcome)
