@@ -325,13 +325,20 @@ The variance of profits in the random sample of 25 movies is 5156.149 (million d
 *step c*
 
 ```{r}
-#WRITE YOUR CODE HERE
+
+sample_vars <- numeric(100)
+
+for (i in 1:100) {
+sample_i <- movies1[sample(nrow(movies1), 25), ]  
+sample_vars[i] <- var(sample_i$profits_millions, na.rm=TRUE)
+}
+head(sample_vars)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The first six values are 1467.470, 4811.677, 23420.599, 20283.804, 3148.406, and 26480.444. These values already show a lot of variation from sample to sample, which reflects how sensitive the variance estimate is to which movies happen to end up in a small sample of 25, especially given how skewed the underlying profits distribution is.
 
 *step d*
 
