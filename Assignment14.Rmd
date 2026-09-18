@@ -345,8 +345,13 @@ b. Now, assume that the variance of *runtime* amongst thriller movies in your da
 *step a*
 
 ```{r}
-#WRITE YOUR CODE HERE
-
+thrillers <- subset(movies1, genre == "Thriller")
+xbar  <- mean(thrillers$runtime, na.rm = TRUE)
+s     <- sd(thrillers$runtime, na.rm = TRUE)
+n     <- sum(!is.na(thrillers$runtime))
+se    <- s / sqrt(n)
+tcrit <- qt(0.995, df = n - 1)
+c(xbar - tcrit * se, xbar + tcrit * se)
 
 ```
 
