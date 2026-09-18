@@ -196,9 +196,9 @@ mean_log_profit
 ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
   geom_boxplot(fill = "gray", color = "black", outlier.color = "red") +
   labs(
-    title = "Distribution of Log-Transformed Movie Profits",
-    x = "Movies (Profitable Only)",
-    y = "Log of Profit"
+    title = "Distribution of log-transformed movie profits",
+    x = "Profitable movies",
+    y = "Log of profit"
   ) +
   theme_minimal()
 
@@ -227,7 +227,7 @@ Write your formulated response here.
 **Your Answer:**
 
 Write your formulated response here.
-
+It is a sample of a larger population, the full population would include every single movie made globally, and since this dataset only includes 505 movies, it is safe to say that it is a sample
 
 2
 
