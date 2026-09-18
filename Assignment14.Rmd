@@ -284,24 +284,31 @@ e. In your opinion, is a sample of 25 movies sufficient to get a reliable estima
 *step a*
 
 ```{r}
-#WRITE YOUR CODE HERE
+movies1$profits <- movies1$revenue - movies1$budget
+movies1$profits_millions <- movies1$profits / 1e6 
 
+n <- nrow(movies1)
+pop_var <- var(movies1$profits_millions, na.rm = TRUE) * (n - 1)/n 
+pop_var
 ```
 
 **Your Answer:**
+After recoding profits into millions and treating the dataset as the full population, the population variance of profits is 30,402.8 (million dollars squared). This gives a standard deviation of about $174 million, which is large compared to the mean profit of roughly $63 million. This makes sense given the skewed nature of the data, since a small number of blockbuster movies like Avatar generate profits far above the typical movie, which pulls the variance up a lot.
 
-Write your formulated response here.
 
 *step b*
 
 ```{r}
-#WRITE YOUR CODE HERE
+set.seed(123)
+movies_sample<- movies1[sample(nrow(movies1), 25),]
 
+sample_var <- var(movies_sample$profits_millions, na.rm = TRUE)
+sample_var
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The variance of profits in the random sample of 25 movies is 5156.149 (million dollars squared), which is much lower than the population variance of 30,402.8 found in 2a. This difference is likely because the profits distribution is highly skewed, with a small number of blockbuster movies driving up the variance in the full population. A sample of just 25 movies has a good chance of missing these extreme outliers entirely, which would make the sample variance look much smaller than the true population variance. This shows that with such a skewed variable, small samples can give quite unreliable estimates of the population variance, just by chance.
 
 *step c*
 
