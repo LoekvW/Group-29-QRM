@@ -376,20 +376,20 @@ c(xbar - tcrit * se, xbar + tcrit * se)
 
 **Your Answer:**
 
-Write your formulated response here.
+We're 99% confident the true mean runtime of all thriller movies lies between 99.94 and 111.01 minutes.
 
 *step b*
 
 ```{r}
-#WRITE YOUR CODE HERE
+zcrit <- qnorm(0.995)
+c(xbar - zcrit * se, xbar + zcrit * se)
 
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
-
+The 99% confidence interval is [100.11, 110.85]. It is narrower than in part a. This is because we now assume the population variance is known, so we use the z (normal) distribution instead of the t distribution. Its critical value is smaller, which gives a narrower interval.
 
 2
 
