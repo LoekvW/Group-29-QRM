@@ -213,13 +213,18 @@ plus the boxplot in C had a lot more movies, since we deleted all the once makin
 
 ```{r}
 
-#WRITE YOUR CODE HERE
+plot(movies1$runtime, movies1$vote_average,
+     main = "Runtime vs Average Vote",
+     xlab = "Runtime (minutes)",
+     ylab = "Average Vote")
+
+cor(movies1$runtime, movies1$vote_average, use = "complete.obs")
 
 ```
 
-**Your Answer:**
-
-Write your formulated response here.
+This gives a correlation of about 0.32 between runtime and average vote.
+Looking at the scatterplot, most movies cluster between about 90 and 130 minutes with average votes somewhere between 5 and 7.5, and there's a mild upward trend running through the cloud of points. Longer movies do tend to get slightly higher ratings on average, but the relationship is pretty weak, since a correlation of 0.32 means runtime only accounts for a small part of the variation in how movies get rated.
+So overall, audiences seem to have a slight preference for longer movies, but it's not a strong effect. A likely reason is that longer runtimes often go along with bigger productions, more developed stories, and higher budgets, things like epics or dramas that studios invest more time and money into tend to run longer, and that extra effort may translate into somewhat better reception.
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
