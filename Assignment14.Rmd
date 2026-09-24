@@ -406,26 +406,37 @@ b. For the validity of your test in 2a, what assumption about the distribution o
 *step a*
 
 ```{r}
-#WRITE YOUR CODE HERE
-
+x  <- na.omit(movies1$runtime)
+n  <- length(x)
+s2 <- var(x)
+chi2 <- (n - 1) * s2 / 500
+crit <- qchisq(c(0.025, 0.975), df = n - 1)
+pval <- 2 * min(pchisq(chi2, n - 1), 1 - pchisq(chi2, n - 1))
+round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p = pval), 3)
 
 ```
 
-**Your Answer:**
-
-Write your formulated response here.
+1. **Hypotheses:** $H_0: \sigma^2 = 500$ versus $H_1: \sigma^2 \neq 500$ (two-sided).
+2. **Significance level:** $\alpha = 0.05$.
+3. **Test statistic:** $\chi^2 = (n-1)s^2/\sigma_0^2$, which under $H_0$ follows a $\chi^2$ distribution with $n-1 = 503$ degrees of freedom. With $n = 504$ movies (one has a missing runtime) and $s^2 = 483.10$, we get $\chi^2 = 503 \cdot 483.10/500 = 486.00$.
+4. **Critical values:** reject $H_0$ if $\chi^2 < 442.75$ or $\chi^2 > 567.04$.
+5. **Conclusion:** $\chi^2 = 486.00$ lies between the two critical values (p = 0.60), so we do not reject $H_0$. At the 5% level there is no evidence that the population variance of runtime differs from 500.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-
+```{r, fig.height=2.8, fig.width=6.5}
+par(mfrow = c(1, 2))
+hist(x, breaks = 40, freq = FALSE, main = "Histogram of runtime",
+     xlab = "Runtime (minutes)")
+curve(dnorm(x, mean = mean(x), sd = sd(x)), add = TRUE, col = "red", lwd = 2)
+qqnorm(x, main = "Normal Q-Q plot of runtime")
+qqline(x, col = "red", lwd = 2)
+par(mfrow = c(1, 1))
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The question says revenue, but the test is about runtime. The $\chi^2$ test for a variance is only valid if runtime is normally distributed in the population, and unlike tests on the mean it stays sensitive to this even in large samples. The histogram shows that runtime is not normal: it is right-skewed, with a long upper tail (up to 276 minutes) and a few values of 0 that look like missing data. In the Q-Q plot the points bend away from the line in both tails, most clearly in the upper tail. The normality assumption is therefore violated, so the conclusion in 2a should be treated with caution.
 
 3. There is an argument going on in the movie studio. *Bob* claims that they should make higher-quality movies, as this will bring in more profits. *Chantal* disagrees. She tells Bob that mediocre movies bring in the most profits. You are asked to advise on who is right.
 
@@ -436,45 +447,61 @@ d. Write an advice to settle the argument between Bob and Chantal. \textbf{[4 po
 
 *step a*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-
+```{r, fig.height=2.8, fig.width=6.5}
+movies1$vote_average_rounded <- floor(movies1$vote_average)
+hist(movies1$vote_average_rounded, breaks = seq(-0.5, 10.5, by = 1),
+     main = "Histogram of rounded-down vote average",
+     xlab = "Vote average (rounded down)", ylab = "Number of movies")
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We use `floor()`, which drops the decimals (6.7 becomes 6), rather than `round()` (which would turn 6.7 into 7). Most movies have a rating of 5 (142 movies) or 6 (222), followed by 7 (83) and 4 (36). High ratings are rare: only 5 movies score 8 and none score 9 or 10. The 8 movies with a rating of 0 all have zero votes, so their 0 is really a missing rating.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
 
-
+```{r, fig.height=2.8, fig.width=6.5}
+mean_profits <- aggregate(profits ~ vote_average_rounded, data = movies1, FUN = mean)
+plot(mean_profits$vote_average_rounded, mean_profits$profits / 1e6, pch = 19,
+     main = "Mean profit by movie rating",
+     xlab = "Vote average (rounded down)", ylab = "Mean profit (millions of $)")
 ```
+
 
 **Your Answer:**
 
-Write your formulated response here.
+
+Mean profits are highest for movies rated 8, at about \$168.7 million, followed by movies rated 7 (\$144.1 million). Profits rise steadily with the rating: movies rated 5 and 6 make on average \$43.1 and \$56.5 million, and movies rated 4 or lower make close to nothing.
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-
+```{r, fig.height=2.8, fig.width=6.5, warning=FALSE}
+ci <- do.call(data.frame, aggregate(profits ~ vote_average_rounded, data = movies1,
+        FUN = function(v) c(mean = mean(v), sd = sd(v), n = length(v))))
+names(ci) <- c("rating", "mean", "sd", "n")
+ci$lower <- (ci$mean - qt(0.975, ci$n - 1) * ci$sd / sqrt(ci$n)) / 1e6
+ci$upper <- (ci$mean + qt(0.975, ci$n - 1) * ci$sd / sqrt(ci$n)) / 1e6
+ci$mean  <- ci$mean / 1e6
+plot(ci$rating, ci$mean, pch = 19, ylim = range(c(ci$lower, ci$upper)),
+     main = "Mean profit by movie rating with 95% confidence intervals",
+     xlab = "Vote average (rounded down)", ylab = "Mean profit (millions of $)")
+arrows(ci$rating, ci$lower, ci$rating, ci$upper, angle = 90, code = 3, length = 0.05)
+round(ci[, c("rating", "n", "mean", "lower", "upper")], 1)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We interpret "year" in the question as vote_average_rounded, since the question asks to recreate the plot from 3b. The intervals are narrow for ratings 5 and 6 (\$23.7–62.6 million and \$40.1–72.9 million), where there are many movies. For rating 7 the interval is \$72.9–215.3 million, which lies entirely above the intervals of ratings 5 and 6. The interval for rating 8 is extremely wide (–\$231.6 to \$569.1 million) because it is based on only 5 movies, so its high mean is very uncertain.
 
 *step d*
 
 **Your Answer:**
 
-Write your formulated response here.
+The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn on average \$43–56 million, while good movies rated 7 earn about \$144 million, and the 95% confidence intervals of these groups do not overlap. Movies rated 8 have the highest mean profit, but with only 5 such movies this estimate is too uncertain to rely on. There is no evidence that mediocre movies are the most profitable.
+
+We would still add two caveats. First, this is a correlation, not proof that quality causes profit: better-rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well-received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
+
 
 # Week 4 
 
