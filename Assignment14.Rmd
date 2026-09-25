@@ -355,19 +355,41 @@ The first six values are 1467.470, 4811.677, 23420.599, 20283.804, 3148.406, and
 *step d*
 
 ```{r}
-#WRITE YOUR CODE HERE
+library(ggplot2)
+mean_var <- mean(sample_vars)
+sd_var <- sd(sample_vars)
+
+mean_var
+sd_var
+
+df_vars <- data.frame(sample_vars = sample_vars)
+
+ggplot(df_vars, aes(x = sample_vars)) +
+  geom_histogram(bins = 30, fill = "blue", color = "black", alpha = 0.7) +
+  labs(
+    title = "title = Distribution of variances sample",
+    x = "sample variances",
+    y = "frequency"
+  ) +
+  theme_minimal()
+
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+the mean of sample_vars is equal to the population variance of the movie population, which is approximately 3.05 x 10^16.
+
+The standard deviation of sample_vars is 5.54 x 10^16
+
+The Histogram is extremely right tailed
 
 *step e*
 
 **Your Answer:**
 
-Write your formulated response here.
+no, a sample size of 25 is not sufficient. 
+This is because a single mega hit amongst those 25 can extremely influence the variance of the sample 
 
 **Your answer here**
 
