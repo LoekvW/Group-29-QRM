@@ -2,7 +2,7 @@
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
 author: "group 29: Thea von Sydow, Loek van Wijk, Thomas Dop, Anastasios Goudras and Tim de Marez Oyens" 
-date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
+date:  "25-09-2026"
 output:
   pdf_document:
     number_sections: true
@@ -23,9 +23,7 @@ format:
   html:
     code-overflow: wrap
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 # Introduction
 
@@ -61,13 +59,38 @@ Each week consists of 1, 2, or 3 subquestions. The total amount of points you ca
 
 1.  Find the dataset “movies1.tsv” on Canvas. Describe your data set: How many observations does it have. How many variables are there? How many subjects?   What consists of a subject? \textbf{[4 points]}
 
-```{r}
+
+``` r
 library(readr)
 movies1 <- read_tsv("movies1.tsv")
+```
+
+```
+## Rows: 505 Columns: 19
+## -- Column specification --------------------------------------------------------
+## Delimiter: "\t"
+## chr   (8): keywords, original_language, title, genre, first_actor, first_act...
+## dbl  (10): index, budget, popularity, revenue, runtime, vote_average, vote_c...
+## date  (1): release_date
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+``` r
 nrow(movies1)
+```
+
+```
+## [1] 505
+```
+
+``` r
 ncol(movies1)
+```
 
-
+```
+## [1] 19
 ```
 
 **Your Answer:**
@@ -79,10 +102,122 @@ it has
 
 2. Which of the following types of variables are present in your data set? (i) nominal; (ii) ordinal; (iii); interval; (iv) ratio. If present, name one example of such a variable present in your data set. \textbf{[4 points]}
 
-```{r}
+
+``` r
 str(movies1)
+```
+
+```
+## spc_tbl_ [505 x 19] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ index              : num [1:505] 1773 2540 1174 3262 4324 ...
+##  $ budget             : num [1:505] 2.70e+07 1.50e+07 4.00e+07 0.00 0.00 1.20e+08 2.80e+07 7.00e+07 1.25e+07 4.00e+07 ...
+##  $ keywords           : chr [1:505] "fbi island serial killer series of murders" "fire winter santa claus snow storm christmas tree" "police sequel police officer brother-in-law brother-in-law relationship black men" "masseuse thanksgiving party romance mother daughter relationship" ...
+##  $ original_language  : chr [1:505] "en" "en" "en" "en" ...
+##  $ title              : chr [1:505] "Mindhunters" "Krampus" "Ride Along 2" "Enough Said" ...
+##  $ popularity         : num [1:505] 17.194 31.565 25.136 14.969 0.148 ...
+##  $ release_date       : Date[1:505], format: "2004-05-07" "2015-11-26" ...
+##  $ revenue            : num [1:505] 2.11e+07 6.15e+07 1.25e+08 2.53e+07 0.00 ...
+##  $ runtime            : num [1:505] 106 98 102 93 97 130 108 99 100 99 ...
+##  $ vote_average       : num [1:505] 6.3 5.9 6.1 6.6 6 6.2 5.5 4.4 6 6.2 ...
+##  $ vote_count         : num [1:505] 333 584 555 348 9 597 640 533 210 371 ...
+##  $ genre              : chr [1:505] "Thriller" "Comedy" "Comedy" "Drama" ...
+##  $ release_year       : num [1:505] 2004 2015 2016 2013 2006 ...
+##  $ release_month      : num [1:505] 5 11 1 9 10 3 2 1 2 9 ...
+##  $ release_day        : num [1:505] 7 26 14 18 27 15 4 10 14 29 ...
+##  $ first_actor        : chr [1:505] "LL Cool" "Adam Scott" "Kevin Hart" "Julia Louis-Dreyfus" ...
+##  $ first_actor_gender : chr [1:505] NA "male" "male" "female" ...
+##  $ director_first_name: chr [1:505] "Renny" "Michael" "Tim" "Nicole" ...
+##  $ director_gender    : chr [1:505] "male" "male" "male" "female" ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   index = col_double(),
+##   ..   budget = col_double(),
+##   ..   keywords = col_character(),
+##   ..   original_language = col_character(),
+##   ..   title = col_character(),
+##   ..   popularity = col_double(),
+##   ..   release_date = col_date(format = ""),
+##   ..   revenue = col_double(),
+##   ..   runtime = col_double(),
+##   ..   vote_average = col_double(),
+##   ..   vote_count = col_double(),
+##   ..   genre = col_character(),
+##   ..   release_year = col_double(),
+##   ..   release_month = col_double(),
+##   ..   release_day = col_double(),
+##   ..   first_actor = col_character(),
+##   ..   first_actor_gender = col_character(),
+##   ..   director_first_name = col_character(),
+##   ..   director_gender = col_character()
+##   .. )
+##  - attr(*, "problems")=<pointer: 0x0000019fbeaffd50>
+```
+
+``` r
 summary(movies1)
+```
+
+```
+##      index          budget               keywords   original_language
+##  Min.   :   0   Min.   :        0   Length   :505   Length   :505    
+##  1st Qu.:1056   1st Qu.:        0   N.unique :447   N.unique : 13    
+##  Median :2283   Median : 15000000   N.blank  :  0   N.blank  :  0    
+##  Mean   :2335   Mean   : 31694006   Min.nchar:  3   Min.nchar:  2    
+##  3rd Qu.:3581   3rd Qu.: 45000000   Max.nchar:129   Max.nchar:  2    
+##  Max.   :4796   Max.   :250000000   NAs      : 53                    
+##                                                                      
+##        title       popularity         release_date           revenue         
+##  Length   :505   Min.   :2.386e-03   Min.   :1990-01-19   Min.   :0.000e+00  
+##  N.unique :505   1st Qu.:4.759e+00   1st Qu.:2002-04-12   1st Qu.:0.000e+00  
+##  N.blank  :  0   Median :1.414e+01   Median :2007-06-01   Median :1.948e+07  
+##  Min.nchar:  3   Mean   :2.283e+01   Mean   :2006-11-25   Mean   :9.482e+07  
+##  Max.nchar: 62   3rd Qu.:2.985e+01   3rd Qu.:2012-05-25   3rd Qu.:1.043e+08  
+##                  Max.   :2.037e+02   Max.   :2016-08-02   Max.   :2.788e+09  
+##                                                                              
+##     runtime     vote_average     vote_count            genre      release_year 
+##  Min.   :  0   Min.   :0.000   Min.   :    0.0   Length   :505   Min.   :1990  
+##  1st Qu.: 94   1st Qu.:5.600   1st Qu.:   47.0   N.unique : 13   1st Qu.:2002  
+##  Median :103   Median :6.200   Median :  255.0   N.blank  :  0   Median :2007  
+##  Mean   :107   Mean   :6.043   Mean   :  802.9   Min.nchar:  5   Mean   :2006  
+##  3rd Qu.:118   3rd Qu.:6.800   3rd Qu.:  914.0   Max.nchar: 11   3rd Qu.:2012  
+##  Max.   :276   Max.   :8.100   Max.   :11800.0   NAs      :  5   Max.   :2016  
+##  NAs    :1                                                                     
+##  release_month     release_day       first_actor  first_actor_gender
+##  Min.   : 1.000   Min.   : 1.00   Length   :505   Length   :505     
+##  1st Qu.: 4.000   1st Qu.: 8.00   N.unique :405   N.unique :  2     
+##  Median : 8.000   Median :15.00   N.blank  :  0   N.blank  :  0     
+##  Mean   : 6.968   Mean   :15.29   Min.nchar:  6   Min.nchar:  4     
+##  3rd Qu.:10.000   3rd Qu.:23.00   Max.nchar: 23   Max.nchar:  6     
+##  Max.   :12.000   Max.   :31.00   NAs      :  8   NAs      : 23     
+##                                                                     
+##  director_first_name  director_gender
+##  Length   :505       Length   :505   
+##  N.unique :266       N.unique :  2   
+##  N.blank  :  0       N.blank  :  0   
+##  Min.nchar:  2       Min.nchar:  4   
+##  Max.nchar: 14       Max.nchar:  6   
+##  NAs      :  6       NAs      : 35   
+## 
+```
+
+``` r
 head(movies1)
+```
+
+```
+## # A tibble: 6 x 19
+##   index  budget keywords original_language title popularity release_date revenue
+##   <dbl>   <dbl> <chr>    <chr>             <chr>      <dbl> <date>         <dbl>
+## 1  1773  2.70e7 fbi isl~ en                Mind~     17.2   2004-05-07    2.11e7
+## 2  2540  1.5 e7 fire wi~ en                Kram~     31.6   2015-11-26    6.15e7
+## 3  1174  4   e7 police ~ en                Ride~     25.1   2016-01-14    1.25e8
+## 4  3262  0      masseus~ en                Enou~     15.0   2013-09-18    2.53e7
+## 5  4324  0      christi~ en                Fait~      0.148 2006-10-27    0     
+## 6   214  1.20e8 u.s. ai~ en                The ~     25.8   2000-03-15    3.26e8
+## # i 11 more variables: runtime <dbl>, vote_average <dbl>, vote_count <dbl>,
+## #   genre <chr>, release_year <dbl>, release_month <dbl>, release_day <dbl>,
+## #   first_actor <chr>, first_actor_gender <chr>, director_first_name <chr>,
+## #   director_gender <chr>
 ```
 
 **Your Answer:**
@@ -113,7 +248,8 @@ For each step, you should provide first all the code you used to answer the ques
 
 *Step a*
 
-```{r}
+
+``` r
 library(readr)
 
 movies1 <- read_tsv("movies1.tsv", show_col_types = FALSE)
@@ -121,25 +257,65 @@ movies1 <- read_tsv("movies1.tsv", show_col_types = FALSE)
 movies1$profits <- movies1$revenue - movies1$budget
 
 mean(movies1$profits)
-median(movies1$profits)
-max(movies1$profits)
-min(movies1$profits)
+```
 
+```
+## [1] 63121475
+```
+
+``` r
+median(movies1$profits)
+```
+
+```
+## [1] 1900000
+```
+
+``` r
+max(movies1$profits)
+```
+
+```
+## [1] 2550965087
+```
+
+``` r
+min(movies1$profits)
+```
+
+```
+## [1] -9e+07
 ```
 
 **Your Answer: After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
 
 *Step b*
 
-```{r}
+
+``` r
 movies1$profit <- movies1$revenue - movies1$budget
 
 highest_profit_movie <- movies1[which.max(movies1$profit), ]
 highest_profit_movie[, c("title", "profit")]
+```
 
+```
+## # A tibble: 1 x 2
+##   title      profit
+##   <chr>       <dbl>
+## 1 Avatar 2550965087
+```
+
+``` r
 lowest_profit_movie <- movies1[which.min(movies1$profit), ]
 lowest_profit_movie[, c("title", "profit")]
+```
 
+```
+## # A tibble: 1 x 2
+##   title               profit
+##   <chr>                <dbl>
+## 1 Mighty Joe Young -90000000
 ```
 
 **Your Answer:**
@@ -149,11 +325,19 @@ The lowest profit is Mighty Joe Young, which has a loss of 90,000,000 dollars
 
 *Step c*
 
-```{r}
+
+``` r
 library(ggplot2)
 movies1$profit <- movies1$revenue - movies1$budget
 quantile(movies1$profit, na.rm = TRUE)
+```
 
+```
+##         0%        25%        50%        75%       100% 
+##  -90000000          0    1900000   60514050 2550965087
+```
+
+``` r
 ggplot(movies1, aes(x = "", y = profit)) +
   geom_boxplot(fill = "gray", color = "black", outlier.color = "red") +
   labs(
@@ -162,19 +346,30 @@ ggplot(movies1, aes(x = "", y = profit)) +
     y = "Profit"
   ) +
   theme_minimal()
-
 ```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-5-1.pdf)<!-- --> 
 
 **Your Answer:**
 The movie industry is very high risk high reward, whilst most movies either break even or make a small profit, or a small loss, only a low amount of movies actually make a large profit
 
 *Step d*
 
-```{r}
 
+``` r
 movies1$logprofits <- log(movies1$profits)
-mean(movies1$logprofits)
+```
 
+```
+## Warning in log(movies1$profits): NaNs produced
+```
+
+``` r
+mean(movies1$logprofits)
+```
+
+```
+## [1] NaN
 ```
 
 **Your Answer:**
@@ -185,13 +380,27 @@ Because of this, when we calculate the mean of logprofits, the result is NaN. R 
 
 *Step e*
 
-```{r}
+
+``` r
 movies1$profit <- movies1$revenue - movies1$budget
 movies1$log_profit <- log(movies1$profit)
+```
+
+```
+## Warning in log(movies1$profit): NaNs produced
+```
+
+``` r
 movies1$log_profit[movies1$profit <= 0] <- NA
 mean_log_profit <- mean(movies1$log_profit, na.rm = TRUE)
 mean_log_profit
+```
 
+```
+## [1] 17.38094
+```
+
+``` r
 ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
   geom_boxplot(fill = "gray", color = "black", outlier.color = "red") +
   labs(
@@ -200,8 +409,9 @@ ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
     y = "Log of profit"
   ) +
   theme_minimal()
-
 ```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
 
 **Your Answer:**
 
@@ -210,15 +420,22 @@ plus the boxplot in C had a lot more movies, since we deleted all the once makin
 
 *Step f*
 
-```{r}
 
+``` r
 plot(movies1$runtime, movies1$vote_average,
      main = "Runtime vs Average Vote",
      xlab = "Runtime (minutes)",
      ylab = "Average Vote")
+```
 
+![](Assignment14_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
+
+``` r
 cor(movies1$runtime, movies1$vote_average, use = "complete.obs")
+```
 
+```
+## [1] 0.3211682
 ```
 
 This gives a correlation of about 0.32 between runtime and average vote.
@@ -239,12 +456,40 @@ c.  How trustworthy do you consider your conclusion to answer 2b? Use the term "
 
 *step a*
 
-```{r}
+
+``` r
 library (dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+``` r
 movies1 %>%
   filter(!is.na(first_actor)) %>%
   count(first_actor, sort = TRUE) %>%
   head(1)
+```
+
+```
+## # A tibble: 1 x 2
+##   first_actor      n
+##   <chr>        <int>
+## 1 Bruce Willis     7
 ```
 
 **Your Answer:**
@@ -252,8 +497,8 @@ The actor with the most movies (in this sample) is Bruce Willis who has 7 movies
 
 *step b*
 
-```{r}
 
+``` r
 movies_bruce <- subset(movies1, first_actor == "Bruce Willis")
 Average_revenue_Bruce <- mean(movies_bruce$revenue, na.rm = TRUE)
 
@@ -269,9 +514,9 @@ This means that the average Bruce Willis movie generates more revenue than the a
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -293,7 +538,8 @@ e. In your opinion, is a sample of 25 movies sufficient to get a reliable estima
 
 *step a*
 
-```{r}
+
+``` r
 movies1$profits <- movies1$revenue - movies1$budget
 movies1$profits_millions <- movies1$profits / 1e6 
 
@@ -302,18 +548,27 @@ pop_var <- var(movies1$profits_millions, na.rm = TRUE) * (n - 1)/n
 pop_var
 ```
 
+```
+## [1] 30402.8
+```
+
 **Your Answer:**
 After recoding profits into millions and treating the dataset as the full population, the population variance of profits is 30,402.8 (million dollars squared). This gives a standard deviation of about $174 million, which is large compared to the mean profit of roughly $63 million. This makes sense given the skewed nature of the data, since a small number of blockbuster movies like Avatar generate profits far above the typical movie, which pulls the variance up a lot.
 
 
 *step b*
 
-```{r}
+
+``` r
 set.seed(123)
 movies_sample<- movies1[sample(nrow(movies1), 25),]
 
 sample_var <- var(movies_sample$profits_millions, na.rm = TRUE)
 sample_var
+```
+
+```
+## [1] 5156.149
 ```
 
 **Your Answer:**
@@ -322,8 +577,8 @@ The variance of profits in the random sample of 25 movies is 5156.149 (million d
 
 *step c*
 
-```{r}
 
+``` r
 sample_vars <- numeric(100)
 
 for (i in 1:100) {
@@ -331,7 +586,10 @@ sample_i <- movies1[sample(nrow(movies1), 25), ]
 sample_vars[i] <- var(sample_i$profits_millions, na.rm=TRUE)
 }
 head(sample_vars)
+```
 
+```
+## [1]  3141.213  2110.105  3441.955 20740.620  1686.073  3680.152
 ```
 
 **Your Answer:**
@@ -340,14 +598,28 @@ The first six values are 1467.470, 4811.677, 23420.599, 20283.804, 3148.406, and
 
 *step d*
 
-```{r}
+
+``` r
 library(ggplot2)
 mean_var <- mean(sample_vars)
 sd_var <- sd(sample_vars)
 
 mean_var
-sd_var
+```
 
+```
+## [1] 24755.5
+```
+
+``` r
+sd_var
+```
+
+```
+## [1] 43528.21
+```
+
+``` r
 df_vars <- data.frame(sample_vars = sample_vars)
 
 ggplot(df_vars, aes(x = sample_vars)) +
@@ -358,9 +630,9 @@ ggplot(df_vars, aes(x = sample_vars)) +
     y = "frequency"
   ) +
   theme_minimal()
-
-
 ```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-15-1.pdf)<!-- --> 
 
 **Your Answer:**
 
@@ -390,7 +662,8 @@ b. Now, assume that the variance of *runtime* amongst thriller movies in your da
 
 *step a*
 
-```{r}
+
+``` r
 thrillers <- subset(movies1, genre == "Thriller")
 xbar  <- mean(thrillers$runtime, na.rm = TRUE)
 s     <- sd(thrillers$runtime, na.rm = TRUE)
@@ -398,7 +671,10 @@ n     <- sum(!is.na(thrillers$runtime))
 se    <- s / sqrt(n)
 tcrit <- qt(0.995, df = n - 1)
 c(xbar - tcrit * se, xbar + tcrit * se)
+```
 
+```
+## [1]  99.94343 111.01042
 ```
 
 **Your Answer:**
@@ -407,11 +683,14 @@ We're 99% confident the true mean runtime of all thriller movies lies between 99
 
 *step b*
 
-```{r}
+
+``` r
 zcrit <- qnorm(0.995)
 c(xbar - zcrit * se, xbar + zcrit * se)
+```
 
-
+```
+## [1] 100.1081 110.8457
 ```
 
 **Your Answer:**
@@ -425,7 +704,8 @@ b. For the validity of your test in 2a, what assumption about the distribution o
 
 *step a*
 
-```{r}
+
+``` r
 x  <- na.omit(movies1$runtime)
 n  <- length(x)
 s2 <- var(x)
@@ -433,7 +713,11 @@ chi2 <- (n - 1) * s2 / 500
 crit <- qchisq(c(0.025, 0.975), df = n - 1)
 pval <- 2 * min(pchisq(chi2, n - 1), 1 - pchisq(chi2, n - 1))
 round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p = pval), 3)
+```
 
+```
+##         n        s2      chi2  crit_low crit_high         p 
+##   504.000   483.097   485.996   442.750   567.037     0.602
 ```
 
 1. **Hypotheses:** $H_0: \sigma^2 = 500$ versus $H_1: \sigma^2 \neq 500$ (two-sided).
@@ -444,13 +728,19 @@ round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p 
 
 *step b*
 
-```{r, fig.height=2.8, fig.width=6.5}
+
+``` r
 par(mfrow = c(1, 2))
 hist(x, breaks = 40, freq = FALSE, main = "Histogram of runtime",
      xlab = "Runtime (minutes)")
 curve(dnorm(x, mean = mean(x), sd = sd(x)), add = TRUE, col = "red", lwd = 2)
 qqnorm(x, main = "Normal Q-Q plot of runtime")
 qqline(x, col = "red", lwd = 2)
+```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-19-1.pdf)<!-- --> 
+
+``` r
 par(mfrow = c(1, 1))
 ```
 
@@ -467,12 +757,15 @@ d. Write an advice to settle the argument between Bob and Chantal. \textbf{[4 po
 
 *step a*
 
-```{r, fig.height=2.8, fig.width=6.5}
+
+``` r
 movies1$vote_average_rounded <- floor(movies1$vote_average)
 hist(movies1$vote_average_rounded, breaks = seq(-0.5, 10.5, by = 1),
      main = "Histogram of rounded-down vote average",
      xlab = "Vote average (rounded down)", ylab = "Number of movies")
 ```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
 
 **Your Answer:**
 
@@ -481,12 +774,15 @@ We use `floor()`, which drops the decimals (6.7 becomes 6), rather than `round()
 *step b*
 
 
-```{r, fig.height=2.8, fig.width=6.5}
+
+``` r
 mean_profits <- aggregate(profits ~ vote_average_rounded, data = movies1, FUN = mean)
 plot(mean_profits$vote_average_rounded, mean_profits$profits / 1e6, pch = 19,
      main = "Mean profit by movie rating",
      xlab = "Vote average (rounded down)", ylab = "Mean profit (millions of $)")
 ```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-21-1.pdf)<!-- --> 
 
 
 **Your Answer:**
@@ -496,7 +792,8 @@ Mean profits are highest for movies rated 8, at about \$168.7 million, followed 
 
 *step c*
 
-```{r, fig.height=2.8, fig.width=6.5, warning=FALSE}
+
+``` r
 ci <- do.call(data.frame, aggregate(profits ~ vote_average_rounded, data = movies1,
         FUN = function(v) c(mean = mean(v), sd = sd(v), n = length(v))))
 names(ci) <- c("rating", "mean", "sd", "n")
@@ -507,7 +804,24 @@ plot(ci$rating, ci$mean, pch = 19, ylim = range(c(ci$lower, ci$upper)),
      main = "Mean profit by movie rating with 95% confidence intervals",
      xlab = "Vote average (rounded down)", ylab = "Mean profit (millions of $)")
 arrows(ci$rating, ci$lower, ci$rating, ci$upper, angle = 90, code = 3, length = 0.05)
+```
+
+![](Assignment14_files/figure-latex/unnamed-chunk-22-1.pdf)<!-- --> 
+
+``` r
 round(ci[, c("rating", "n", "mean", "lower", "upper")], 1)
+```
+
+```
+##   rating   n  mean  lower upper
+## 1      0   8   0.0    0.0   0.0
+## 2      2   4   0.2   -1.1   1.6
+## 3      3   5  -2.9   -8.7   3.0
+## 4      4  36  11.8   -0.3  23.9
+## 5      5 142  43.1   23.7  62.6
+## 6      6 222  56.5   40.1  72.9
+## 7      7  83 144.1   72.9 215.3
+## 8      8   5 168.7 -231.6 569.1
 ```
 
 **Your Answer:**
@@ -523,7 +837,8 @@ The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn o
 We would still add two caveats. First, this is a correlation, not proof that quality causes profit: better-rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well-received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
 
 
-```{r}
+
+``` r
 library(tinytex)
 library(knitr)
 ```
@@ -546,9 +861,9 @@ g. Who do you think is correct? Bob or Chantal? What would you advise the movie 
 
 *step a*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -557,9 +872,9 @@ Write your formulated response here.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -568,9 +883,9 @@ Write your formulated response here.
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -579,9 +894,9 @@ Write your formulated response here.
 
 *step d*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -590,9 +905,9 @@ Write your formulated response here.
 
 *step e*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -601,9 +916,9 @@ Write your formulated response here.
 
 *step f*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -612,9 +927,9 @@ Write your formulated response here.
 
 *step g*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -629,9 +944,9 @@ c. Now, have a close look at your data frame. Can you find any instances of male
 
 *step a*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -640,9 +955,9 @@ Write your formulated response here.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -651,9 +966,9 @@ Write your formulated response here.
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -676,9 +991,9 @@ f. Estimate a model that is able to predict the revenue of this movie. Give its 
 
 *step a*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -687,9 +1002,9 @@ Write your formulated response here.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -698,9 +1013,9 @@ Write your formulated response here.
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -709,9 +1024,9 @@ Write your formulated response here.
 
 *step d*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -720,9 +1035,9 @@ Write your formulated response here.
 
 *step e*
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
 **Your Answer:**
@@ -732,8 +1047,8 @@ Write your formulated response here.
 *step f*
 
 
-```{r}
-#WRITE YOUR CODE HERE
 
+``` r
+#WRITE YOUR CODE HERE
 ```
 
