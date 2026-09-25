@@ -1,7 +1,7 @@
 ---
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
-author: group 29: Thea von Sydow, 
+author: "group 29: Thea von Sydow, Loek van Wijk, Thomas Dop, Anastasios Goudras and Tim de Marez Oyens" 
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
   pdf_document:
@@ -23,6 +23,18 @@ format:
   html:
     code-overflow: wrap
 ---
+
+
+```{r}
+install.packages("knitr")
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+```{r}
+library(tinytex)
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
