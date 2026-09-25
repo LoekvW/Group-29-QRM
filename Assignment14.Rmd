@@ -23,19 +23,6 @@ format:
   html:
     code-overflow: wrap
 ---
-
-
-```{r}
-install.packages("knitr")
-install.packages("tinytex")
-tinytex::install_tinytex()
-```
-
-```{r}
-library(tinytex)
-```
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -257,7 +244,6 @@ library (dplyr)
 movies1 %>%
   count(first_actor, sort = TRUE) %>%
   head(1)
-most_common_actor <- names(which.max(amount_actor))
 
 ```
 
@@ -435,7 +421,7 @@ The 99% confidence interval is [100.11, 110.85]. It is narrower than in part a. 
 2
 
 a. Using an appropriate five-step procedure, set up a test for the null hypothesis that the variance of runtime equals $500$. Clearly state your null hypothesis, alternative hypothesis your test statistic, your critical value, and your conclusion. \textbf{[2 points]}
-b. For the validity of your test in 2a, what assumption about the distribution of revenue needs to hold? Make an appropriate plot to test this assumption. What do you conclude? \textbf{[2 points]}
+b. For the validity of your test in 2a, what assumption about the distribution of runtime needs to hold? Make an appropriate plot to test this assumption. What do you conclude? \textbf{[2 points]}
 
 *step a*
 
@@ -535,6 +521,15 @@ We interpret "year" in the question as vote_average_rounded, since the question 
 The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn on average \$43–56 million, while good movies rated 7 earn about \$144 million, and the 95% confidence intervals of these groups do not overlap. Movies rated 8 have the highest mean profit, but with only 5 such movies this estimate is too uncertain to rely on. There is no evidence that mediocre movies are the most profitable.
 
 We would still add two caveats. First, this is a correlation, not proof that quality causes profit: better-rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well-received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
+
+
+```{r}
+library(tinytex)
+library(knitr)
+```
+
+
+
 
 
 # Week 4 
