@@ -403,7 +403,7 @@ c(xbar - tcrit * se, xbar + tcrit * se)
 
 **Your Answer:**
 
-We're 99% confident the true mean runtime of all thriller movies lies between 99.94 and 111.01 minutes.
+e're 99% confident the true mean runtime of all thriller movies lies between 99.94 and 111.01 minutes. The interval is centered on the sample mean of 105.48 minutes, based on the 65 thrillers in our data. Because the population variance is unknown, we estimate it with the sample variance and use the t distribution with 64 degrees of freedom. We do not need runtime itself to be normally distributed, since n = 65 ≥ 30, the central limit theorem tells us that the sample mean is approximately normal, so this interval is valid.
 
 *step b*
 
@@ -416,7 +416,7 @@ c(xbar - zcrit * se, xbar + zcrit * se)
 
 **Your Answer:**
 
-The 99% confidence interval is [100.11, 110.85]. It is narrower than in part a. This is because we now assume the population variance is known, so we use the z (normal) distribution instead of the t distribution. Its critical value is smaller, which gives a narrower interval.
+The 99% confidence interval is [100.11, 110.85]. Assuming the population variance is known, we are 99% confident that the true mean runtime of all thriller movies lies between 100.11 and 110.85 minutes. This interval is narrower than the one in part a. Because the variance is now known, we no longer have the extra uncertainty from estimating it with the sample, so we use the z (normal) distribution instead of the t distribution. Its critical value is smaller (2.576 instead of 2.655), which gives a narrower interval. The difference is small because with n = 65 the t distribution is already very close to the normal distribution.
 
 2
 
@@ -436,11 +436,11 @@ round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p 
 
 ```
 
-1. **Hypotheses:** $H_0: \sigma^2 = 500$ versus $H_1: \sigma^2 \neq 500$ (two-sided).
-2. **Significance level:** $\alpha = 0.05$.
-3. **Test statistic:** $\chi^2 = (n-1)s^2/\sigma_0^2$, which under $H_0$ follows a $\chi^2$ distribution with $n-1 = 503$ degrees of freedom. With $n = 504$ movies (one has a missing runtime) and $s^2 = 483.10$, we get $\chi^2 = 503 \cdot 483.10/500 = 486.00$.
-4. **Critical values:** reject $H_0$ if $\chi^2 < 442.75$ or $\chi^2 > 567.04$.
-5. **Conclusion:** $\chi^2 = 486.00$ lies between the two critical values (p = 0.60), so we do not reject $H_0$. At the 5% level there is no evidence that the population variance of runtime differs from 500.
+1. **Hypotheses:** $H_0: \sigma^2 = 500$ versus $H_1: \sigma^2 \neq 500$ (two-sided), with significance level $\alpha = 0.05$.
+2. **Decision rule:** we use the sample variance $s^2$. Because the test is two sided, we reject $H_0$ if $s^2$ is much smaller or much larger than 500, i.e. if $\chi^2$ falls below the lower or above the upper critical value.
+3. **Distribution:** under $H_0$, $\chi^2 = (n-1)s^2/\sigma_0^2$ follows a $\chi^2$ distribution with $n-1$ degrees of freedom. This requires runtime to be normally distributed in the population (checked in 2b). We removed one movie with a missing runtime and two with a runtime of 0, which is not a real value, leaving $n = 502$ movies and $n-1 = 501$ degrees of freedom.
+4. **Computation:** $s^2 = 439.18$, so $\chi^2 = 501 \cdot 439.18/500 = 440.06$. The critical values are 440.87 (lower) and 564.91 (upper), and the p value is 0.047.
+5. **Decision:** $\chi^2 = 440.06$ is below the lower critical value and p = 0.047 < 0.05, so we reject $H_0$. At the 5% level there is evidence that the population variance of runtime differs from 500 (it seems to be smaller). The rejection is borderline, though, with the two zero runtimes included we would not reject, so this result should be read with care (see 2b).
 
 *step b*
 
@@ -514,8 +514,7 @@ round(ci[, c("rating", "n", "mean", "lower", "upper")], 1)
 
 **Your Answer:**
 
-We read "year" in the question as vote_average_rounded, since the question asks us to recreate the plot from 3b. For ratings 5 and 6 the intervals are fairly narrow ($23.7–62.6 million and $40.1–72.9 million), which makes sense because these groups contain the most movies. Rating 7 is the most interesting, its interval runs from $72.87 to $215.3 million, which sits entirely above the interval for rating 5 and only barely overlaps with the one for rating 6 (which ends at $72.89 million). Finally, the interval for rating 8 is huge (–$231.6 to $569.1 million) because it's based on just 5 movies, so we can't put much trust in its high mean. The interval even dips into negative values, so we can't be sure these movies are profitable on average at all.
-
+We read "year" in the question as vote_average_rounded, since the question asks us to recreate the plot from 3b. For ratings 5 and 6 the intervals are fairly narrow ($23.7–62.6 million and $40.1–72.9 million), which makes sense because these groups contain the most movies. Rating 7 is the most interesting, its interval runs from $72.87 to $215.3 million, which sits entirely above the interval for rating 5 and only barely overlaps with the one for rating 6 (which ends at $72.89 million). Finally, the interval for rating 8 is huge (–$231.6 to $569.1 million) because it's based on just 5 movies, so we can't put much trust in its high mean. The interval even dips into negative values, so we can't be sure these movies are profitable on average at all. More generally, these t-intervals rely on the central limit theorem, which needs roughly 30 or more observations per group. Ratings 0, 2, 3 and 8 contain only 8, 4, 5 and 5 movies, and profits are very right skewed, so the intervals for these groups are not reliable.
 
 *step d*
 
@@ -523,10 +522,9 @@ We read "year" in the question as vote_average_rounded, since the question asks 
 
 The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn on average $43–56 million, while good movies rated 7 earn about $144 million. The 95% confidence interval for rating 7 lies entirely above the one for rating 5 and only barely overlaps with the one for rating 6 (which ends at $72.89 million). Movies rated 8 have the highest mean profit, but with only 5 such movies this estimate is too uncertain to rely on. There is no evidence that mediocre movies are the most profitable.
 
-We would still add two caveats. First, this is a correlation, not proof that quality causes profit, better rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre. That said, Chantal has a point if she means total profit, because most movies are mediocre, ratings 5–6 together bring in about $18.7 billion, compared with about $12.0 billion for rating 7 (mean × number of movies from the table in 3c). But this only reflects how many mediocre movies are made. Per movie, a rating 7 film earns more than twice as much, and that is what matters when the studio decides what kind of movie to make next.
+That said, Chantal has a point if she means total profit, because most movies are mediocre, ratings 5–6 together bring in about $18.7 billion, compared with about $12.0 billion for rating 7 (mean × number of movies from the table in 3c). But this only reflects how many mediocre movies are made. Per movie, a rating 7 film earns more than twice as much, and that is what matters when the studio decides what kind of movie to make next.
 
-
-
+We would still add two caveats. First, this is a correlation, not proof that quality causes profit, better rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
 
 # Week 4 
 
