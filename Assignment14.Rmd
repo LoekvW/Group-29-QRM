@@ -426,7 +426,7 @@ b. For the validity of your test in 2a, what assumption about the distribution o
 *step a*
 
 ```{r}
-x  <- na.omit(movies1$runtime)
+x <- movies1$runtime[!is.na(movies1$runtime) & movies1$runtime > 0]
 n  <- length(x)
 s2 <- var(x)
 chi2 <- (n - 1) * s2 / 500
@@ -448,7 +448,9 @@ round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p 
 par(mfrow = c(1, 2))
 hist(x, breaks = 40, freq = FALSE, main = "Histogram of runtime",
      xlab = "Runtime (minutes)")
-curve(dnorm(x, mean = mean(x), sd = sd(x)), add = TRUE, col = "red", lwd = 2)
+mu   <- mean(x)
+sdev <- sd(x)
+curve(dnorm(x, mean = mu, sd = sdev), add = TRUE, col = "red", lwd = 2)
 qqnorm(x, main = "Normal Q-Q plot of runtime")
 qqline(x, col = "red", lwd = 2)
 par(mfrow = c(1, 1))
@@ -456,7 +458,7 @@ par(mfrow = c(1, 1))
 
 **Your Answer:**
 
-The question says revenue, but the test is about runtime. The $\chi^2$ test for a variance is only valid if runtime is normally distributed in the population, and unlike tests on the mean it stays sensitive to this even in large samples. The histogram shows that runtime is not normal: it is right-skewed, with a long upper tail (up to 276 minutes) and a few values of 0 that look like missing data. In the Q-Q plot the points bend away from the line in both tails, most clearly in the upper tail. The normality assumption is therefore violated, so the conclusion in 2a should be treated with caution.
+The $\chi^2$ test for a variance is only valid if runtime is normally distributed in the population, and unlike tests on the mean it stays sensitive to this even in large samples. The histogram shows that runtime is not normal: it is right-skewed, with a long upper tail (up to 276 minutes). In the Q-Q plot the points bend away from the line in both tails, most clearly in the upper tail. The normality assumption is therefore violated. The conclusion in 2a is that $H_0$ was rejected because p = 0.047 < 0.05, but this p-value comes from a test whose assumption doesn't hold, so there is no strong proof that the variance is different from 500.
 
 3. There is an argument going on in the movie studio. *Bob* claims that they should make higher-quality movies, as this will bring in more profits. *Chantal* disagrees. She tells Bob that mediocre movies bring in the most profits. You are asked to advise on who is right.
 
@@ -476,7 +478,7 @@ hist(movies1$vote_average_rounded, breaks = seq(-0.5, 10.5, by = 1),
 
 **Your Answer:**
 
-We use `floor()`, which drops the decimals (6.7 becomes 6), rather than `round()` (which would turn 6.7 into 7). Most movies have a rating of 5 (142 movies) or 6 (222), followed by 7 (83) and 4 (36). High ratings are rare: only 5 movies score 8 and none score 9 or 10. The 8 movies with a rating of 0 all have zero votes, so their 0 is really a missing rating.
+We used floor() instead of round(), so decimals are simply cut off. For example, a 6.7 becomes 6, not 7. Looking at the results, most movies land in the middle, with 222 rated 6 and 142 rated 5. After that, 83 movies at 7 and 36 at 4. Top scores are rare, only 5 movies reach an 8, and not a single one gets a 9 or 10. The 8 movies with a rating of 0 all have zero votes, so that 0 doesn't mean they're terrible. It just means nobody rated them.
 
 *step b*
 
@@ -492,7 +494,7 @@ plot(mean_profits$vote_average_rounded, mean_profits$profits / 1e6, pch = 19,
 **Your Answer:**
 
 
-Mean profits are highest for movies rated 8, at about \$168.7 million, followed by movies rated 7 (\$144.1 million). Profits rise steadily with the rating: movies rated 5 and 6 make on average \$43.1 and \$56.5 million, and movies rated 4 or lower make close to nothing.
+Mean profits are highest for movies rated 8, at about $168.7 million, followed by movies rated 7 ($144.1 million). Profits rise steadily from rating 4 onwards, movies rated 4 make about $11.8 million, and movies rated 5 and 6 make on average $43.1 and $56.5 million. One thing worth mentioning is that movies with a rating of 3 lose money, about $2.9 million on average.
 
 *step c*
 
@@ -512,22 +514,16 @@ round(ci[, c("rating", "n", "mean", "lower", "upper")], 1)
 
 **Your Answer:**
 
-We interpret "year" in the question as vote_average_rounded, since the question asks to recreate the plot from 3b. The intervals are narrow for ratings 5 and 6 (\$23.7–62.6 million and \$40.1–72.9 million), where there are many movies. For rating 7 the interval is \$72.9–215.3 million, which lies entirely above the intervals of ratings 5 and 6. The interval for rating 8 is extremely wide (–\$231.6 to \$569.1 million) because it is based on only 5 movies, so its high mean is very uncertain.
+We read "year" in the question as vote_average_rounded, since the question asks us to recreate the plot from 3b. For ratings 5 and 6 the intervals are fairly narrow ($23.7–62.6 million and $40.1–72.9 million), which makes sense because these groups contain the most movies. Rating 7 is the most interesting, its interval runs from $72.87 to $215.3 million, which sits entirely above the interval for rating 5 and only barely overlaps with the one for rating 6 (which ends at $72.89 million). Finally, the interval for rating 8 is huge (–$231.6 to $569.1 million) because it's based on just 5 movies, so we can't put much trust in its high mean. The interval even dips into negative values, so we can't be sure these movies are profitable on average at all.
+
 
 *step d*
 
 **Your Answer:**
 
-The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn on average \$43–56 million, while good movies rated 7 earn about \$144 million, and the 95% confidence intervals of these groups do not overlap. Movies rated 8 have the highest mean profit, but with only 5 such movies this estimate is too uncertain to rely on. There is no evidence that mediocre movies are the most profitable.
+The data support Bob rather than Chantal. Mediocre movies (ratings 5–6) earn on average $43–56 million, while good movies rated 7 earn about $144 million. The 95% confidence interval for rating 7 lies entirely above the one for rating 5 and only barely overlaps with the one for rating 6 (which ends at $72.89 million). Movies rated 8 have the highest mean profit, but with only 5 such movies this estimate is too uncertain to rely on. There is no evidence that mediocre movies are the most profitable.
 
-We would still add two caveats. First, this is a correlation, not proof that quality causes profit: better-rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well-received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
-
-
-```{r}
-library(tinytex)
-library(knitr)
-```
-
+We would still add two caveats. First, this is a correlation, not proof that quality causes profit, better rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre. That said, Chantal has a point if she means total profit, because most movies are mediocre, ratings 5–6 together bring in about $18.7 billion, compared with about $12.0 billion for rating 7 (mean × number of movies from the table in 3c). But this only reflects how many mediocre movies are made. Per movie, a rating 7 film earns more than twice as much, and that is what matters when the studio decides what kind of movie to make next.
 
 
 
