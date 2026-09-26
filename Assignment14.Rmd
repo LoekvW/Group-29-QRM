@@ -403,7 +403,7 @@ c(xbar - tcrit * se, xbar + tcrit * se)
 
 **Your Answer:**
 
-e're 99% confident the true mean runtime of all thriller movies lies between 99.94 and 111.01 minutes. The interval is centered on the sample mean of 105.48 minutes, based on the 65 thrillers in our data. Because the population variance is unknown, we estimate it with the sample variance and use the t distribution with 64 degrees of freedom. We do not need runtime itself to be normally distributed, since n = 65 ≥ 30, the central limit theorem tells us that the sample mean is approximately normal, so this interval is valid.
+We're 99% confident the true mean runtime of all thriller movies lies between 99.94 and 111.01 minutes. The interval is centered on the sample mean of 105.48 minutes, based on the 65 thrillers in our data. Because the population variance is unknown, we estimate it with the sample variance and use the t distribution with 64 degrees of freedom. We do not need runtime itself to be normally distributed, since $n = 65 \geq 30$, the central limit theorem tells us that the sample mean is approximately normal, so this interval is valid.
 
 *step b*
 
