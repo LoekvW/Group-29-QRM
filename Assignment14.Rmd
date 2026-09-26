@@ -1,7 +1,7 @@
 ---
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
-author: "group 29: Thea von Sydow, Loek van Wijk, Thomas Dop, Anastasios Goudras and Tim de Marez Oyens" 
+author: "Group 29: Thea von Sydow, Loek van Wijk, Thomas Dop, Anastasios Goudras and Tim de Marez Oyens" 
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
   pdf_document:
@@ -71,11 +71,9 @@ ncol(movies1)
 ```
 
 **Your Answer:**
+The data set has 505 observations and 19 variables. Each observation is one movie, so there is 505 subjects, and a subject is a single movie. 
 
-Write your response here.
-it has 19 variables
-it has 505 subjects
-it has 
+
 
 2. Which of the following types of variables are present in your data set? (i) nominal; (ii) ordinal; (iii); interval; (iv) ratio. If present, name one example of such a variable present in your data set. \textbf{[4 points]}
 
@@ -87,12 +85,11 @@ head(movies1)
 
 **Your Answer:**
 
-Write your response here.
-All four data types are present
+All four data types are present in the data set:  
 Nominal - genre
-ordinal - release_month
-interval - release_date
-ratio - budget
+Ordinal - release_month
+Interval - release_date
+Ratio - budget
 
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
@@ -171,17 +168,19 @@ The movie industry is very high risk high reward, whilst most movies either brea
 *Step d*
 
 ```{r}
-
 movies1$logprofits <- log(movies1$profits)
+
+sum(movies1$profits == 0)
+sum(movies1$profits < 0)
+sum(movies1$profits <= 0)
+
 mean(movies1$logprofits)
 
 ```
 
 **Your Answer:**
 
-When we take the log of profits, movies with a profit of exactly zero end up as -Inf, since the log of zero is undefined and trends toward negative infinity. Movies with negative profits (losses) turn into NaN, because you can't take the log of a negative number at all. R even throws a warning about this, saying "NaNs produced." Since 116 of the 505 movies in the data set have profits of zero or less, all of these rows get one of these problematic values instead of a real number.
-
-Because of this, when we calculate the mean of logprofits, the result is NaN. R can't average a column that contains undefined values like NaN and -Inf alongside normal numbers, so the whole calculation breaks down, even though most of the individual values are perfectly fine..
+Taking the log of profits gives -Inf for movies with zero profit and NaN for movies with a loss, since you can't take the log of zero or a negative number. This affects 116 of the 505 movies. Because of these values, the mean of logprofits also comes out as NaN.
 
 *Step e*
 
@@ -205,8 +204,8 @@ ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
 
 **Your Answer:**
 
-The boxplot in C had a lot of massive outliers, whilst this one is a bit more centered arount its median.
-plus the boxplot in C had a lot more movies, since we deleted all the once making a loss or breaking even
+The boxplot in C had a lot of massive outliers, whilst this one is a bit more centered around its median.
+Plus the boxplot in C had a lot more movies, since we deleted all the once making a loss or breaking even.
 
 *Step f*
 
@@ -223,6 +222,7 @@ cor(movies1$runtime, movies1$vote_average, use = "complete.obs")
 
 This gives a correlation of about 0.32 between runtime and average vote.
 Looking at the scatterplot, most movies cluster between about 90 and 130 minutes with average votes somewhere between 5 and 7.5, and there's a mild upward trend running through the cloud of points. Longer movies do tend to get slightly higher ratings on average, but the relationship is pretty weak, since a correlation of 0.32 means runtime only accounts for a small part of the variation in how movies get rated.
+
 So overall, audiences seem to have a slight preference for longer movies, but it's not a strong effect. A likely reason is that longer runtimes often go along with bigger productions, more developed stories, and higher budgets, things like epics or dramas that studios invest more time and money into tend to run longer, and that extra effort may translate into somewhat better reception.
 
 # Week 2 
