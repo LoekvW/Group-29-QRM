@@ -430,9 +430,9 @@ round(c(n = n, s2 = s2, chi2 = chi2, crit_low = crit[1], crit_high = crit[2], p 
 
 1. **Hypotheses:** $H_0: \sigma^2 = 500$ versus $H_1: \sigma^2 \neq 500$ (two-sided), with significance level $\alpha = 0.05$.
 2. **Decision rule:** we use the sample variance $s^2$. Because the test is two sided, we reject $H_0$ if $s^2$ is much smaller or much larger than 500, i.e. if $\chi^2$ falls below the lower or above the upper critical value.
-3. **Distribution:** under $H_0$, $\chi^2 = (n-1)s^2/\sigma_0^2$ follows a $\chi^2$ distribution with $n-1$ degrees of freedom. This requires runtime to be normally distributed in the population (checked in 2b). We removed one movie with a missing runtime and two with a runtime of 0, which is not a real value, leaving $n = 502$ movies and $n-1 = 501$ degrees of freedom.
+3. **Distribution:** under $H_0$, $\chi^2 = (n-1)s^2/\sigma_0^2$ follows a $\chi^2$ distribution with $n-1$ degrees of freedom. This requires runtime to be normally distributed in the population. We removed one movie with a missing runtime and two with a runtime of 0, which is not a real value, leaving $n = 502$ movies and $n-1 = 501$ degrees of freedom.
 4. **Computation:** $s^2 = 439.18$, so $\chi^2 = 501 \cdot 439.18/500 = 440.06$. The critical values are 440.87 (lower) and 564.91 (upper), and the p value is 0.047.
-5. **Decision:** $\chi^2 = 440.06$ is below the lower critical value and p = 0.047 < 0.05, so we reject $H_0$. At the 5% level there is evidence that the population variance of runtime differs from 500 (it seems to be smaller). The rejection is borderline, though, with the two zero runtimes included we would not reject, so this result should be read with care (see 2b).
+5. **Decision:** $\chi^2 = 440.06$ is below the lower critical value and p = 0.047 < 0.05, so we reject $H_0$. At the 5% level there is evidence that the population variance of runtime differs from 500. The rejection is borderline, though, with the two zero runtimes included we would not reject, so this result should be read with care.
 
 *step b*
 
@@ -450,7 +450,7 @@ par(mfrow = c(1, 1))
 
 **Your Answer:**
 
-The $\chi^2$ test for a variance is only valid if runtime is normally distributed in the population, and unlike tests on the mean it stays sensitive to this even in large samples. The histogram shows that runtime is not normal: it is right-skewed, with a long upper tail (up to 276 minutes). In the Q-Q plot the points bend away from the line in both tails, most clearly in the upper tail. The normality assumption is therefore violated. The conclusion in 2a is that $H_0$ was rejected because p = 0.047 < 0.05, but this p-value comes from a test whose assumption doesn't hold, so there is no strong proof that the variance is different from 500.
+The $\chi^2$ test for a variance is only valid if runtime is normally distributed in the population, and unlike tests on the mean it stays sensitive to this even in large samples. The histogram shows that runtime is not normal: it is right-skewed, with a long upper tail (up to 276 minutes). In the Q-Q plot the points bend away from the line in both tails, most clearly in the upper tail. The normality assumption is therefore violated. The conclusion in 2a is that $H_0$ was rejected because p = 0.047 < 0.05, but this p value comes from a test whose assumption doesn't hold, so there is no strong proof that the variance is different from 500.
 
 3. There is an argument going on in the movie studio. *Bob* claims that they should make higher-quality movies, as this will bring in more profits. *Chantal* disagrees. She tells Bob that mediocre movies bring in the most profits. You are asked to advise on who is right.
 
