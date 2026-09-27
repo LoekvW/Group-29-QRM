@@ -63,7 +63,7 @@ Each week consists of 1, 2, or 3 subquestions. The total amount of points you ca
 
 ```{r}
 library(readr)
-movies1 <- read_tsv("movies1.tsv")
+movies1 <- read_tsv("movies1.tsv", show_col_types = FALSE)
 nrow(movies1)
 ncol(movies1)
 
@@ -78,19 +78,17 @@ The data set has 505 observations and 19 variables. Each observation is one movi
 2. Which of the following types of variables are present in your data set? (i) nominal; (ii) ordinal; (iii); interval; (iv) ratio. If present, name one example of such a variable present in your data set. \textbf{[4 points]}
 
 ```{r}
-str(movies1)
-summary(movies1)
-head(movies1)
+head(movies1[, c("genre", "release_month", "release_date", "budget")], 3)
 ```
 
 **Your Answer:**
 
-All four data types are present in the data set:  
-Nominal - genre
-Ordinal - release_month
-Interval - release_date
-Ratio - budget
+All four data types are present in the data set:
 
+- Nominal: genre
+- Ordinal: release_month
+- Interval: release_date
+- Ratio: budget
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
@@ -146,7 +144,7 @@ The lowest profit is Mighty Joe Young, which has a loss of 90,000,000 dollars
 
 *Step c*
 
-```{r}
+```{r, fig.height=3, fig.width=5}
 library(ggplot2)
 movies1$profit <- movies1$revenue - movies1$budget
 quantile(movies1$profit, na.rm = TRUE)
@@ -159,7 +157,6 @@ ggplot(movies1, aes(x = "", y = profit)) +
     y = "Profit"
   ) +
   theme_minimal()
-
 ```
 
 **Your Answer:**
@@ -184,7 +181,7 @@ Taking the log of profits gives -Inf for movies with zero profit and NaN for mov
 
 *Step e*
 
-```{r}
+```{r, fig.height=3, fig.width=5}
 movies1$profit <- movies1$revenue - movies1$budget
 movies1$log_profit <- log(movies1$profit)
 movies1$log_profit[movies1$profit <= 0] <- NA
@@ -209,7 +206,7 @@ Plus the boxplot in C had a lot more movies, since we deleted all the once makin
 
 *Step f*
 
-```{r}
+```{r, fig.height=3.2, fig.width=5.5}
 
 plot(movies1$runtime, movies1$vote_average,
      main = "Runtime vs Average Vote",
