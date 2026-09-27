@@ -518,6 +518,10 @@ That said, Chantal has a point if she means total profit, because most movies ar
 
 We would still add two caveats. First, this is a correlation, not proof that quality causes profit, better rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
 
+```{r, include=FALSE}
+knitr::knit_exit()
+```
+
 # Week 4 
 
 1. There is another argument going on in the movie studio. *Bob* claims that production budgets are getting out of hand, and that the studio should focus on making cheaper movies. *Chantal* disagrees. She tells Bob that ``Every dollar we spend on movie production is more than offset by the increase in movie profits''. 
