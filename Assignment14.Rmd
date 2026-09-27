@@ -1,7 +1,9 @@
 ---
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
-author: "Group 29: Thea von Sydow, Loek van Wijk, Thomas Dop, Anastasios Goudras and Tim de Marez Oyens" 
+author: |
+  | Group 29: Thea von Sydow, Loek van Wijk, Thomas Dop,
+  | Anastasios Goudras and Tim de Marez Oyens
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
   pdf_document:
@@ -268,11 +270,6 @@ The average revenue for all the movies is 94,815,481.64 U.S. Dollars
 This means that the average Bruce Willis movie generates more revenue than the average movie from this sample.
 
 *step c*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
 
 **Your Answer:**
 
