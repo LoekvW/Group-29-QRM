@@ -122,7 +122,9 @@ min(movies1$profits)
 
 ```
 
-**Your Answer: After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
+**Your Answer:**
+
+After creating profits as revenue minus budget, the average profit across the 505 movies is $63,121,475, but the median is only $1,900,000. Profits range from a low of -$90,000,000 (a loss) up to a high of $2,550,965,087. The big gap between the mean and median already suggests the data is skewed, since a few really successful movies are dragging the average up while most movies make much less.
 
 *Step b*
 
@@ -160,7 +162,7 @@ ggplot(movies1, aes(x = "", y = profit)) +
 ```
 
 **Your Answer:**
-The movie industry is very high risk high reward, whilst most movies either break even or make a small profit, or a small loss, only a low amount of movies actually make a large profit
+Q1 = $0, Q2 (median) = $1,900,000, Q3 = $60,514,050 and Q4 (maximum) = $2,550,965,087. The movie industry is very high risk high reward, whilst most movies either break even or make a small profit, or a small loss, only a low amount of movies actually make a large profit
 
 *Step d*
 
@@ -177,7 +179,7 @@ mean(movies1$logprofits)
 
 **Your Answer:**
 
-Taking the log of profits gives -Inf for movies with zero profit and NaN for movies with a loss, since you can't take the log of zero or a negative number. This affects 116 of the 505 movies. Because of these values, the mean of logprofits also comes out as NaN.
+Taking the log of profits gives -Inf for movies with zero profit and NaN for movies with a loss, since you can't take the log of zero or a negative number. This affects 229 of the 505 movies (113 with zero profit, 116 with a loss). Because of these values, the mean of logprofits also comes out as NaN.
 
 *Step e*
 
@@ -201,8 +203,7 @@ ggplot(movies1[!is.na(movies1$log_profit), ], aes(x = "", y = log_profit)) +
 
 **Your Answer:**
 
-The boxplot in C had a lot of massive outliers, whilst this one is a bit more centered around its median.
-Plus the boxplot in C had a lot more movies, since we deleted all the once making a loss or breaking even.
+After setting log profits to NA for movies with zero or negative profit, the mean of log profits is 17.38. The boxplot in C had a lot of massive outliers, whilst this one is a bit more centered around its median. Plus the boxplot in C had a lot more movies, since we deleted all the once making a loss or breaking even.
 
 *Step f*
 
@@ -255,6 +256,8 @@ movies_bruce <- subset(movies1, first_actor == "Bruce Willis")
 Average_revenue_Bruce <- mean(movies_bruce$revenue, na.rm = TRUE)
 
 Average_Revenue <- mean(movies1$revenue, na.rm = TRUE)
+Average_revenue_Bruce
+Average_Revenue
 ```
 
 **Your Answer:**
@@ -320,7 +323,7 @@ The variance of profits in the random sample of 25 movies is 5156.149 (million d
 *step c*
 
 ```{r}
-
+set.seed(2026)
 sample_vars <- numeric(100)
 
 for (i in 1:100) {
@@ -333,7 +336,7 @@ head(sample_vars)
 
 **Your Answer:**
 
-The first six values are 1467.470, 4811.677, 23420.599, 20283.804, 3148.406, and 26480.444. These values already show a lot of variation from sample to sample, which reflects how sensitive the variance estimate is to which movies happen to end up in a small sample of 25, especially given how skewed the underlying profits distribution is.
+The first six values are 20037.60, 20651.72, 51398.94, 36983.01, 18170.74, and 14105.60. These values already show a lot of variation from sample to sample, which reflects how sensitive the variance estimate is to which movies happen to end up in a small sample of 25, especially given how skewed the underlying profits distribution is.
 
 *step d*
 
@@ -350,7 +353,7 @@ df_vars <- data.frame(sample_vars = sample_vars)
 ggplot(df_vars, aes(x = sample_vars)) +
   geom_histogram(bins = 30, fill = "blue", color = "black", alpha = 0.7) +
   labs(
-    title = "title = Distribution of variances sample",
+    title = "Distribution of sample variances",
     x = "sample variances",
     y = "frequency"
   ) +
@@ -361,20 +364,15 @@ ggplot(df_vars, aes(x = sample_vars)) +
 
 **Your Answer:**
 
-the mean of sample_vars is equal to the population variance of the movie population, which is approximately 3.05 x 10^16.
-
-The standard deviation of sample_vars is 5.54 x 10^16
-
-The Histogram is extremely right tailed
+The mean of sample_vars is about 38,330 and its standard deviation is about 68,930 (both in millions of dollars squared). The mean is in the same range as the population variance of 30,402.8, but not equal to it. The sample variance is an unbiased estimator, so with more repetitions the average would move closer to the population value. However, the standard deviation is more than twice the mean, which shows how much the estimates vary between samples. The histogram is strongly right skewed. Most samples have a variance well below the population variance (the median is only about 16,880), and a few samples that happen to include a blockbuster such as Avatar have extremely large variances (up to about 284,000).
 
 *step e*
 
 **Your Answer:**
 
-no, a sample size of 25 is not sufficient. 
+No, a sample size of 25 is not sufficient. 
 This is because a single mega hit amongst those 25 can extremely influence the variance of the sample 
 
-**Your answer here**
 
 # Week 3 
 
