@@ -537,24 +537,27 @@ g. Who do you think is correct? Bob or Chantal? What would you advise the movie 
 *step a*
 
 ```{r}
-#WRITE YOUR CODE HERE
+model_chantal <- lm(profit ~ budget, data = movies1)
+
+summary(model_chantal)
 
 ```
 
 **Your Answer:**
+The claim that every dollar spend on movie production is more than offset by the increase in movie profits can be tested using this hypothesis: H0: β1 ≤ 1, H1: β1 > 1
 
-Write your formulated response here.
+
 
 *step b*
 
 ```{r}
-#WRITE YOUR CODE HERE
+
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Looking at the output of question a, you can see under estimated std and budget that the coefficient/slope for the Beta 1 is equal to 3.547. You can interpret this as for every single dollar spend on the budget for the movie, the profits will increase by 3.547 dollars.
 
 *step c*
 
@@ -565,7 +568,9 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+H0: Beta1 ≥ 0, H1: Beta1 < 0.
+For the test statistic we use t-value, which is equal to 27.248 and the p value is 2 x 10^-16
+
 
 *step d*
 
