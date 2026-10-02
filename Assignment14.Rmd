@@ -569,19 +569,32 @@ Looking at the output of question a, you can see under estimated std and budget 
 **Your Answer:**
 
 H0: Beta1 ≥ 0, H1: Beta1 < 0.
-For the test statistic we use t-value, which is equal to 27.248 and the p value is 2 x 10^-16
-
+For the test statistic we use t-value, which is equal to 27.248 
+and the p value is 2 x 10^-16, whilst for the one sided p-value for H0 it is equal to 1.
+since beta1 is equal to 3.547 which is positive we do not reject H0 for any significance level.
 
 *step d*
 
 ```{r}
-#WRITE YOUR CODE HERE
+
+movies1$log_budget <- log(movies1$budget)
+movies1$log_budget[movies1$budget == 0 | movies1$revenue == 0] <- NA
+
+movies1$log_profit <- log(movies1$profit)
+movies1$log_profit[movies1$budget == 0 | movies1$revenue == 0 | movies1$profit <= 0] <- NA
+
+model_log <- lm(log_profit ~ log_budget, data = movies1)
+
+
+summary(model_log)
+
+
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+No answer needed, only the code is necessary.
 
 *step e*
 
@@ -592,7 +605,8 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+in a log regression model, the coefficient represents elasticity.
+In this example the value for Beta1 is 0.9207, which means that for a 1% change in budget, the profit will increase by approximately 0.921%
 
 *step f*
 
@@ -603,7 +617,7 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+The level-level has the higher R^2, so i would choose this one. R^2 represents the relevance of the model, and since the level-level model has the higher R^2 and the higher adjusted R^2, this is the clear choice
 
 *step g*
 
@@ -614,7 +628,7 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+Chantal is correct, since the level-level model is the better fit we will look at that model. In this model you can see that beta1 is equal to 3.547, which means that for every single dollar that is put into the budget of the movie, the profit will increase by $3.547. Since 3.547 > 1, that means that putting more money on the budget of the movie is a profitable idea.
 
 2
 
