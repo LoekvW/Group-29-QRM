@@ -518,10 +518,6 @@ That said, Chantal has a point if she means total profit, because most movies ar
 
 We would still add two caveats. First, this is a correlation, not proof that quality causes profit, better rated movies may also have bigger budgets, famous casts, franchises or more marketing, and popular movies may attract higher ratings rather than the other way around. Second, many movies in the data have a budget or revenue of 0, which is probably missing data and distorts the profit figures. Our advice is that the studio should aim for well received (7+) movies, and confirm the effect of quality with an analysis that controls for budget and genre.
 
-```{r, include=FALSE}
-knitr::knit_exit()
-```
-
 # Week 4 
 
 1. There is another argument going on in the movie studio. *Bob* claims that production budgets are getting out of hand, and that the studio should focus on making cheaper movies. *Chantal* disagrees. She tells Bob that ``Every dollar we spend on movie production is more than offset by the increase in movie profits''. 
@@ -544,20 +540,19 @@ summary(model_chantal)
 ```
 
 **Your Answer:**
-The claim that every dollar spend on movie production is more than offset by the increase in movie profits can be tested using this hypothesis: H0: β1 ≤ 1, H1: β1 > 1
-
-
+We estimate $\text{Profits}_i = \beta_0 + \beta_1 \text{Budget}_i + \varepsilon_i$. Because profit is revenue minus budget, the cost of each dollar spent is already subtracted. So Chantal's claim that every dollar spent is more than offset means that profits still rise when the budget rises, i.e. $\beta_1 > 0$. This gives $H_0: \beta_1 \leq 0$ and $H_1: \beta_1 > 0$.
 
 *step b*
 
 ```{r}
 
+coef(model_chantal)["budget"]
 
 ```
 
 **Your Answer:**
 
-Looking at the output of question a, you can see under estimated std and budget that the coefficient/slope for the Beta 1 is equal to 3.547. You can interpret this as for every single dollar spend on the budget for the movie, the profits will increase by 3.547 dollars.
+The estimated value of $\beta_1$ is 2.547. This means that, on average, every extra dollar spent on a movie's budget is associated with an increase in profits of about \$2.55. Since profit is revenue minus budget, this corresponds to about \$3.55 of extra revenue per dollar of budget. This is an association, not necessarily a causal effect: bigger-budget movies may also differ in other ways, such as franchises, famous casts or marketing.
 
 *step c*
 
@@ -568,14 +563,11 @@ Looking at the output of question a, you can see under estimated std and budget 
 
 **Your Answer:**
 
-H0: Beta1 ≥ 0, H1: Beta1 < 0.
-For the test statistic we use t-value, which is equal to 27.248 
-and the p value is 2 x 10^-16, whilst for the one sided p-value for H0 it is equal to 1.
-since beta1 is equal to 3.547 which is positive we do not reject H0 for any significance level.
+$H_0: \beta_1 \geq 0$ versus $H_1: \beta_1 < 0$ (one-sided, $\alpha = 0.05$). The test statistic is $t = \hat\beta_1 / SE(\hat\beta_1) = 19.57$. R reports the two-sided p-value ($< 2 \times 10^{-16}$), but for this one-sided test we need $P(T < 19.57)$, which is approximately 1. Since $p \approx 1 > 0.05$, we do not reject $H_0$: there is no evidence that $\beta_1$ is negative. The estimate $\hat\beta_1 = 2.547$ is clearly positive.
 
 *step d*
 
-```{r}
+```{r, warning=FALSE}
 
 movies1$log_budget <- log(movies1$budget)
 movies1$log_budget[movies1$budget == 0 | movies1$revenue == 0] <- NA
@@ -594,41 +586,43 @@ summary(model_log)
 
 **Your Answer:**
 
-No answer needed, only the code is necessary.
+Log budget and log profits are set to NA for movies with a budget or revenue of zero (181 movies), and also for the 69 movies with zero or negative profit, because the log of zero or a negative number does not exist. The model is estimated on the remaining 255 movies: $\widehat{\log(\text{Profits})} = 6.120 + 0.673 \log(\text{Budget})$.
 
 *step e*
 
 ```{r}
-#WRITE YOUR CODE HERE
+coef(model_log)["log_budget"]
 
 ```
 
 **Your Answer:**
 
-in a log regression model, the coefficient represents elasticity.
-In this example the value for Beta1 is 0.9207, which means that for a 1% change in budget, the profit will increase by approximately 0.921%
+The estimated value of $\beta_1$ is 0.673. In a log-log model the coefficient is an elasticity: a 1% increase in budget is associated with an increase in profits of about 0.67%, on average. Because 0.673 < 1, profits grow less than proportionally with the budget. Note that this model only uses the 255 movies with a positive profit, so it says nothing about the movies that made a loss.
 
 *step f*
 
 ```{r}
-#WRITE YOUR CODE HERE
+summary(model_chantal)$r.squared
+summary(model_log)$r.squared
 
 ```
 
 **Your Answer:**
 
-The level-level has the higher R^2, so i would choose this one. R^2 represents the relevance of the model, and since the level-level model has the higher R^2 and the higher adjusted R^2, this is the clear choice
+The level-level model has an $R^2$ of 0.432 and the log-log model an $R^2$ of 0.320. However, these values cannot be compared directly: the models have different dependent variables (profits versus log profits) and are estimated on different samples (505 versus 255 movies), so their $R^2$ values measure the share of explained variation in different things. Based on the data, the log-log model seems more appropriate. Profits are strongly right-skewed with extreme outliers (such as Avatar), which dominate the level-level fit, while the log transformation reduces this skewness. Its drawback is that it excludes all movies with zero or negative profit.
 
 *step g*
 
 ```{r}
-#WRITE YOUR CODE HERE
+
 
 ```
 
 **Your Answer:**
 
-Chantal is correct, since the level-level model is the better fit we will look at that model. In this model you can see that beta1 is equal to 3.547, which means that for every single dollar that is put into the budget of the movie, the profit will increase by $3.547. Since 3.547 > 1, that means that putting more money on the budget of the movie is a profitable idea.
+The data support Chantal. In the level-level model, every extra dollar of budget is associated with \$2.55 of extra profit ($\hat\beta_1 = 2.547$), and we clearly reject that this effect is negative (step c). The log-log model points the same way: a 1% higher budget is associated with about 0.67% higher profits. Bob's claim that the studio should make cheaper movies is therefore not supported.
+
+We would still advise some caution. These are associations, not causal effects: high-budget movies are often franchises or have famous casts and large marketing campaigns, which may drive profits themselves. In addition, many movies have a budget or revenue of zero, which is probably missing data. Our advice is that the studio should not cut budgets across the board, but should keep investing in larger productions with a strong commercial case, and check this with a model that also controls for genre and other factors.
 
 2
 
