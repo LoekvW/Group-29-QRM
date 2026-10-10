@@ -633,36 +633,52 @@ c. Now, have a close look at your data frame. Can you find any instances of male
 
 *step a*
 
-```{r}
-#WRITE YOUR CODE HERE
+```{r, fig.height=3, fig.width=5}
+movies1$log_budget2 <- ifelse(movies1$budget > 0, log(movies1$budget), NA)
+gen <- subset(movies1, !is.na(first_actor_gender) & !is.na(log_budget2))
+ci2 <- do.call(data.frame, aggregate(log_budget2 ~ first_actor_gender, data = gen,
+         FUN = function(v) c(mean = mean(v), sd = sd(v), n = length(v))))
+names(ci2) <- c("gender", "mean", "sd", "n")
+ci2$lower <- ci2$mean - qt(0.975, ci2$n - 1) * ci2$sd / sqrt(ci2$n)
+ci2$upper <- ci2$mean + qt(0.975, ci2$n - 1) * ci2$sd / sqrt(ci2$n)
+plot(1:2, ci2$mean, pch = 19, xlim = c(0.5, 2.5), ylim = range(c(ci2$lower, ci2$upper)),
+     xaxt = "n", main = "Mean log budget by gender of first actor (95% CI)",
+     xlab = "Gender of first actor", ylab = "Mean log budget")
+axis(1, at = 1:2, labels = ci2$gender)
+arrows(1:2, ci2$lower, 1:2, ci2$upper, angle = 90, code = 3, length = 0.05)
+ci2
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We use only movies with a positive budget and a known gender of the first actor (91 female, 264 male). The mean log budget is 16.54 for movies with a female first actor (95% CI: 16.25 to 16.84) and 16.86 for movies with a male first actor (95% CI: 16.59 to 17.13). Movies with a male lead have a slightly higher average budget, but the two confidence intervals overlap, so there is no clear evidence of a difference in budgets between male and female first actors.
 
 *step b*
 
 ```{r}
-#WRITE YOUR CODE HERE
+gen$male <- ifelse(gen$first_actor_gender == "male", 1, 0)
+model_gender <- lm(log_budget2 ~ male, data = gen)
+summary(model_gender)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The estimated model is log(budget) = 16.54 + 0.323 * FirstActorMale. The coefficient b1 = 0.323 means that movies with a male first actor have on average a log budget that is 0.323 higher, which is roughly 32% higher budgets than movies with a female first actor. However, b1 is not significantly different from zero: t = 1.30 and p = 0.194 > 0.05, so we do not reject H0: beta1 = 0. This matches our conclusion in 2a: the intercept (16.54) is the mean log budget for female first actors, b1 is the difference between the two group means (16.86 - 16.54), and just as the confidence intervals in 2a overlapped, the regression finds no significant difference.
 
 *step c*
 
 ```{r}
-#WRITE YOUR CODE HERE
+check <- c("Taylor Kitsch", "Jackie Chan", "Jean Reno", "Cuba Gooding",
+           "Blake Lively", "Cameron Diaz", "Dakota Fanning", "Carey Mulligan")
+as.data.frame(subset(movies1, first_actor %in% check)[, c("title", "first_actor", "first_actor_gender")])
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Yes, for example Taylor Kitsch, Jackie Chan and Jean Reno are labelled as female, while Blake Lively, Cameron Diaz and Dakota Fanning are labelled as male. This means FirstActorMale is measured with error. As shown in the lecture, measurement error in X biases b1 towards zero, so the true difference in budgets may be larger than our estimate of 0.323.
 
 # Week 5
 
