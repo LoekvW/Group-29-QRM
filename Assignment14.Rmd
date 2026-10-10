@@ -552,7 +552,7 @@ coef(model_chantal)["budget"]
 
 **Your Answer:**
 
-The estimated value of $\beta_1$ is 2.547. This means that, on average, every extra dollar spent on a movie's budget is associated with an increase in profits of about \$2.55. Since profit is revenue minus budget, this corresponds to about \$3.55 of extra revenue per dollar of budget. This is an association, not necessarily a causal effect: bigger-budget movies may also differ in other ways, such as franchises, famous casts or marketing.
+The estimated value of $\beta_1$ is 2.547. This means that, on average, every extra dollar spent on a movie's budget is associated with an increase in profits of about \$2.55. Since profit is revenue minus budget, this corresponds to about \$3.55 of extra revenue per dollar of budget. This is an association, not necessarily a causal effect, bigger budget movies may also differ in other ways, such as franchises, famous casts or marketing.
 
 *step c*
 
@@ -566,7 +566,7 @@ pt(t_val, df = 503, lower.tail = FALSE)
 
 **Your Answer:**
 
-H0: beta1 >= 0 versus H1: beta1 < 0 (one-sided, alpha = 0.05). The test statistic is t = 2.547 / 0.130 = 19.57 with 503 degrees of freedom. The critical value is -1.648. Since 19.57 > -1.648 and the one-sided p-value is approximately 1, we do not reject H0. Testing Chantal's claim instead (H0: beta1 <= 0), the one-sided p-value is practically 0, so beta1 is significantly positive.
+H0: beta1 >= 0 versus H1: beta1 < 0 (one-sided, alpha = 0.05). The test statistic is t = 2.547 / 0.130 = 19.57 with 503 degrees of freedom. The critical value is -1.648. Since 19.57 > -1.648 and the one sided p value is approximately 1, we do not reject H0. Testing Chantal's claim instead (H0: beta1 <= 0), the one sided p value is practically 0, so beta1 is significantly positive.
 
 *step d*
 
@@ -600,7 +600,7 @@ coef(model_log)["log_budget"]
 
 **Your Answer:**
 
-The estimated value of $\beta_1$ is 0.673. In a log-log model the coefficient is an elasticity: a 1% increase in budget is associated with an increase in profits of about 0.67%, on average. Because 0.673 < 1, profits grow less than proportionally with the budget. Note that this model only uses the 255 movies with a positive profit, so it says nothing about the movies that made a loss.
+The estimated value of $\beta_1$ is 0.673. In a log-log model the coefficient is an elasticity, a 1% increase in budget is associated with an increase in profits of about 0.67%, on average. Because 0.673 < 1, profits grow less than proportionally with the budget. Note that this model only uses the 255 movies with a positive profit, so it says nothing about the movies that made a loss.
 
 *step f*
 
@@ -612,7 +612,7 @@ summary(model_log)$r.squared
 
 **Your Answer:**
 
-The level-level model has a higher R-squared (0.432 versus 0.320), so based on R-squared it fits better. However, the comparison is not perfect, because the models have different dependent variables and samples (505 versus 255 movies), and the level-level fit is strongly influenced by outliers such as Avatar.
+The level-level model has a higher R squared (0.432 versus 0.320), so based on R squared it fits better. However, the comparison is not perfect, because the models have different dependent variables and samples (505 versus 255 movies), and the level-level fit is strongly influenced by outliers such as Avatar.
 
 *step g*
 
@@ -665,7 +665,7 @@ summary(model_gender)
 
 **Your Answer:**
 
-The estimated model is log(budget) = 16.54 + 0.323 * FirstActorMale. The coefficient b1 = 0.323 means that movies with a male first actor have on average a log budget that is 0.323 higher, which is roughly 32% higher budgets than movies with a female first actor. However, b1 is not significantly different from zero: t = 1.30 and p = 0.194 > 0.05, so we do not reject H0: beta1 = 0. This matches our conclusion in 2a: the intercept (16.54) is the mean log budget for female first actors, b1 is the difference between the two group means (16.86 - 16.54), and just as the confidence intervals in 2a overlapped, the regression finds no significant difference.
+The estimated model is log(budget) = 16.54 + 0.323 * FirstActorMale. The coefficient b1 = 0.323 means that movies with a male first actor have on average a log budget that is 0.323 higher, which is roughly 32% higher budgets than movies with a female first actor. However, b1 is not significantly different from zero, t = 1.30 and p = 0.194 > 0.05, so we do not reject H0: beta1 = 0. This matches our conclusion in 2a: the intercept (16.54) is the mean log budget for female first actors, b1 is the difference between the two group means (16.86 - 16.54), and just as the confidence intervals in 2a overlapped, the regression finds no significant difference. In addition, some budgets are clearly wrong (for example 2 and 10 dollars), which are outliers that pull down the mean log budget of male-led movies and also bias the estimate.
 
 *step c*
 
