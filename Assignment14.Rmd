@@ -557,13 +557,16 @@ The estimated value of $\beta_1$ is 2.547. This means that, on average, every ex
 *step c*
 
 ```{r}
-#WRITE YOUR CODE HERE
+t_val <- summary(model_chantal)$coefficients["budget", "t value"]
+qt(0.05, df = 503)
+pt(t_val, df = 503)
+pt(t_val, df = 503, lower.tail = FALSE)
 
 ```
 
 **Your Answer:**
 
-$H_0: \beta_1 \geq 0$ versus $H_1: \beta_1 < 0$ (one-sided, $\alpha = 0.05$). The test statistic is $t = \hat\beta_1 / SE(\hat\beta_1) = 19.57$. R reports the two-sided p-value ($< 2 \times 10^{-16}$), but for this one-sided test we need $P(T < 19.57)$, which is approximately 1. Since $p \approx 1 > 0.05$, we do not reject $H_0$: there is no evidence that $\beta_1$ is negative. The estimate $\hat\beta_1 = 2.547$ is clearly positive.
+H0: beta1 >= 0 versus H1: beta1 < 0 (one-sided, alpha = 0.05). The test statistic is t = 2.547 / 0.130 = 19.57 with 503 degrees of freedom. The critical value is -1.648. Since 19.57 > -1.648 and the one-sided p-value is approximately 1, we do not reject H0. Testing Chantal's claim instead (H0: beta1 <= 0), the one-sided p-value is practically 0, so beta1 is significantly positive.
 
 *step d*
 
@@ -609,7 +612,7 @@ summary(model_log)$r.squared
 
 **Your Answer:**
 
-The level-level model has an $R^2$ of 0.432 and the log-log model an $R^2$ of 0.320. However, these values cannot be compared directly: the models have different dependent variables (profits versus log profits) and are estimated on different samples (505 versus 255 movies), so their $R^2$ values measure the share of explained variation in different things. Based on the data, the log-log model seems more appropriate. Profits are strongly right-skewed with extreme outliers (such as Avatar), which dominate the level-level fit, while the log transformation reduces this skewness. Its drawback is that it excludes all movies with zero or negative profit.
+The level-level model has a higher R-squared (0.432 versus 0.320), so based on R-squared it fits better. However, the comparison is not perfect, because the models have different dependent variables and samples (505 versus 255 movies), and the level-level fit is strongly influenced by outliers such as Avatar.
 
 *step g*
 
@@ -620,9 +623,7 @@ The level-level model has an $R^2$ of 0.432 and the log-log model an $R^2$ of 0.
 
 **Your Answer:**
 
-The data support Chantal. In the level-level model, every extra dollar of budget is associated with \$2.55 of extra profit ($\hat\beta_1 = 2.547$), and we clearly reject that this effect is negative (step c). The log-log model points the same way: a 1% higher budget is associated with about 0.67% higher profits. Bob's claim that the studio should make cheaper movies is therefore not supported.
-
-We would still advise some caution. These are associations, not causal effects: high-budget movies are often franchises or have famous casts and large marketing campaigns, which may drive profits themselves. In addition, many movies have a budget or revenue of zero, which is probably missing data. Our advice is that the studio should not cut budgets across the board, but should keep investing in larger productions with a strong commercial case, and check this with a model that also controls for genre and other factors.
+The data support Chantal: every extra dollar of budget is associated with about 2.55 dollars of extra profit, and this effect is significantly positive. The log-log model agrees (a 1% higher budget gives about 0.67% higher profits). However, this is not necessarily causal, since b1 may suffer from omitted variable bias (for example franchises, famous casts or marketing). We advise the studio not to cut budgets, but to keep investing in productions with a strong commercial case.
 
 2
 
