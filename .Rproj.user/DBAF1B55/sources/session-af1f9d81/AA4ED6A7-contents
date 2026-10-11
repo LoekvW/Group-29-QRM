@@ -1038,44 +1038,81 @@ ggplot(monthly_profits, aes(x = release_month, y = mean_profit)) +
 
 **Your Answer:**
 
-Write your formulated response here.
+Yes, this graph definitely shows us that it is very important in which
+month the movie is released because the bar on the graph aren't very
+uniform. According to the graph it is most obvious that the most
+profitable months are around the summer and winter holiday, when
+everyone is free.
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
-clean_data <- movies1 %>% filter(profit > 0 & budget > 0)
-clean_data$log_profit <- log(clean_data$profit)
-clean_data$log_budget <- log(clean_data$budget)
-model <- lm(log(profit) ~ log(budget) + english + release_month, data = movies1)
-  summary(model)
+data_ready <- movies1 %>% 
+  filter(profit > 0 & budget > 0) %>%
+  mutate(
+    log_profit = log(profit),
+    log_budget = log(budget),
+    english = if_else(original_language == "en", 1, 0)
+  )
+
+model <- lm(log_profit ~ log_budget + english + release_month, data = data_ready)
+summary(model)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Interpretation of each coefficient:
+
+(Intercept): This is b0, the point in the graph when the budget is 1,
+the movie is in English and the release month is 0.
+
+log_budget: This shows that a 1% increase in a movies budget results in
+a 0.68112% increase in the profits
+
+English: This is a dummy variable which tells us that if a movie is
+released in the English language it has an estimated average of -0.66%
+lower profits.
+
+Release month: For every month later in the year a movie is released,
+the profits increase by an average of 0.01517%.
 
 *step c*
 
 ```{r}
 #WRITE YOUR CODE HERE
-
+p_val <- summary(model)$coefficients["release_month", "Pr(>|t|)"]
+print(p_val)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Our null hypothesis is that the coefficient for release month is Beta =
+0, which means the release month has no effect on the profit. According
+to R studio the p-value of the statistics is 0.5677. The p-value is mcuh
+greater than 0.05, which suggests there isn't enough evidence to reject
+the hypothesis.
 
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
+flexible_model <- lm(log_profit ~ log_budget + english + as.factor(release_month), data = data_ready)
+summary(flexible_model)
+
+base_model <- lm(log_profit ~ log_budget + english, data = data_ready)
+anova(base_model, flexible_model) 
+
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+No. As seen in the bar plot, movie profits fluctuate up and down across
+the year with different peaks rather than following a straight line. The
+p-value of the code is 0.15, we fail to reject the null hypothesis and
+conclude that the month of release doesn't impact profits when modeled
+flexibly.
 
 *step e*
 
@@ -1086,11 +1123,22 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+I would advise the executive against trying to strategically time the
+release of movie in a specific month to maximize revenue. Our F-test
+told us that the p-value gave us 0.15, far above the 0.05 threshold,
+which tells us that the months effects aren't statistically significant.
+According to the model, there isn't any statistical evidence that
+releasing in a specific month will make more profits. The plot graph's
+variation probably is random variation.
 
 *step f*
 
 ```{r}
 #WRITE YOUR CODE HERE
+new_movie <- data.frame(log_budget = log(40000000), english = 1, release_month = 6)
 
+pred_log_profit <- predict(model, newdata = new_movie, interval = "prediction", level = 0.99)
+
+pred_revenue <- exp(pred_log_profit) + 40000000
+print(pred_revenue)
 ```
