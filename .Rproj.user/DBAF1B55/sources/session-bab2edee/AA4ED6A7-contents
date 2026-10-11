@@ -19,7 +19,8 @@ header-includes:
     showspaces = false,
     showtabs = false,
     breaklines,
-    commandchars=\\\{\  }
+    commandchars=\\\{\}
+  }
 format:
   html:
     code-overflow: wrap
@@ -1017,7 +1018,6 @@ f.  Estimate a model that is able to predict the revenue of this movie.
 *step a*
 
 ```{r}
-#WRITE YOUR CODE HERE
 library(dplyr)
 library(ggplot2)
 
@@ -1046,7 +1046,6 @@ everyone is free.
 *step b*
 
 ```{r}
-#WRITE YOUR CODE HERE
 data_ready <- movies1 %>% 
   filter(profit > 0 & budget > 0) %>%
   mutate(
@@ -1079,7 +1078,6 @@ the profits increase by an average of 0.01517%.
 *step c*
 
 ```{r}
-#WRITE YOUR CODE HERE
 p_val <- summary(model)$coefficients["release_month", "Pr(>|t|)"]
 print(p_val)
 ```
@@ -1095,7 +1093,6 @@ the hypothesis.
 *step d*
 
 ```{r}
-#WRITE YOUR CODE HERE
 flexible_model <- lm(log_profit ~ log_budget + english + as.factor(release_month), data = data_ready)
 summary(flexible_model)
 
@@ -1115,11 +1112,6 @@ flexibly.
 
 *step e*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
 **Your Answer:**
 
 I would advise the executive against trying to strategically time the
@@ -1133,7 +1125,6 @@ variation probably is random variation.
 *step f*
 
 ```{r}
-#WRITE YOUR CODE HERE
 new_movie <- data.frame(log_budget = log(40000000), english = 1, release_month = 6)
 
 pred_log_profit <- predict(model, newdata = new_movie, interval = "prediction", level = 0.99)
@@ -1141,3 +1132,6 @@ pred_log_profit <- predict(model, newdata = new_movie, interval = "prediction", 
 pred_revenue <- exp(pred_log_profit) + 40000000
 print(pred_revenue)
 ```
+**Your Answer:**
+
+We use the model from b) to predict the log profit of an English movie with a budget of 40,000,000 dollars, released in June, and convert it back to revenue by taking the exponent and adding the budget (revenue = profit + budget). The predicted revenue is about 98 million dollars, with a 99% prediction interval from about 41 million to 2.45 billion dollars. The interval is very wide because it is for one individual movie, and movie profits vary enormously.
