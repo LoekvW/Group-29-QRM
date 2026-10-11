@@ -2,8 +2,8 @@
 title: "QRM II Graded Assignment (14)"
 subtitle: "Period 1, 2026"
 author: |
-  | Anastasios Goudras and Tim de Marez Oyens
   | Group 29: Thea von Sydow, Loek van Wijk, Thomas Dop,
+  | Anastasios Goudras and Tim de Marez Oyens
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
   pdf_document:
@@ -19,7 +19,7 @@ header-includes:
     showspaces = false,
     showtabs = false,
     breaklines,
-    commandchars=\\\{\}
+    commandchars=\\\{\  }
 format:
   html:
     code-overflow: wrap
@@ -789,10 +789,6 @@ many movies in the data have a budget or revenue of 0, which is probably
 missing data and distorts the profit figures. Our advice is that the
 studio should aim for well received (7+) movies, and confirm the effect
 of quality with an analysis that controls for budget and genre.
-
-```{r, include=FALSE}
-knitr::knit_exit()
-```
 
 # Week 4
 
