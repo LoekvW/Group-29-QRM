@@ -1,0 +1,6 @@
+"0",""
+"0","cor(movies1$runtime, movies1$vote_average, use = ""complete.obs"")"
+"1","[1]"
+"1"," 0.3211682"
+"1","
+"

@@ -1,0 +1,1262 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{section}{-1}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  showspaces = false,
+  showtabs = false,
+  breaklines,
+  commandchars=\\\{\}
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={QRM II Graded Assignment (14)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{QRM II Graded Assignment (14)}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Period 1, 2026}
+\author{Anastasios Goudras and Tim de Marez Oyens\\
+Group 29: Thea von Sydow, Loek van Wijk, Thomas Dop,}
+\date{11-10-2026}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+This assignment is to be completed in groups of 4-5. Further, all
+students in your group need to be assigned to the same R tutorial group
+(Friday's tutorial). You can sign yourself up for a group on Canvas.
+Please do so
+\textbf{before the start of your first R tutorial on Friday September 4th.}
+You can use the Discussion Board in Canvas if you do not have a group
+yet or if your group is incomplete.
+
+The assignment has 5 parts, and each part corresponds to the course
+material of that week (with the exclusion of week 6, for which there is
+no R programming material).
+
+You are supposed to hand in these assignments on Canvas at the following
+dates:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Deadline 1} \emph{Sunday September 27th, at 23:59pm}: you are
+  supposed to hand in weeks 1, 2, and 3 of this assignment. This will
+  determine 18\% of your overall course grade
+\item
+  \textbf{Deadline 2} \emph{Sunday October 11th, at 23:59pm}: you are
+  supposed to hand in weeks 4, and 5 of this assignment. This will
+  determine 12\% of your overall course grade
+\end{itemize}
+
+The R tutorials (each Friday) will consist of two halves. During the
+first half, you will discuss the tutorial exercises. These can be
+downloaded separately from Canvas. During the second half, you can work
+on this graded assignment within your own group. The purpose is that you
+find out how to work with R for doing statistical analyses by yourself.
+The tutorial exercises are meant to teach you basic commands to get you
+started, but to answer the problem sets in this assignment, you might
+need to research your own solutions, and use functions and commands not
+described in the tutorial exercises. Learning how to solve your own
+research problems is integral part of learning R. When you and your
+group get stuck on how to approach an exercise, the hierarchy in finding
+your way is as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  use the concepts from the tutorial exercises;
+\item
+  use the cheat sheets available on Canvas;
+\item
+  use Google, YouTube, StackOverflow, or another website;
+\item
+  ask the teacher.
+\end{itemize}
+
+The use of generative AI is \textbf{not} permitted and may result in a
+grade of 0. See the AI protocol in the course manual for details.
+
+To answer the assignment, you can simply fill out this R markdown
+document. There are designated places which you can fill with R code.
+There are also designated spaces for you to answer each question. Often,
+the structure of an answer will be as follows. First, you type the R
+code in the designated box. This will show how you analyzed the data to
+get the answer to the question. Below the box for the R code, you will
+then summarize your answer to the question, i.e.~what are the
+conclusions that you draw from the data analysis?
+
+When handing in, you are supposed to submit this .Rmd file, and a
+knitted version of this document. You can knit this document to pdf,
+word, or html. Knitting to pdf requires you to have a .tex distribution
+installed on your computer. Knitting to Word requires you to have Word
+installed.
+
+The exercises are designed such that you should be able to finish the
+majority of them during the tutorial each week. If you are not able to
+finish them fully during that time, you are expected to work on it in
+your own time using the computers on campus or your own device. It is
+best to meet as a group in-person when working together. If you want to
+work remotely, github is a good platform to guarantee smooth
+collaboration. Alternatively, you can email this .Rmd file back and
+forth to one another as a group, but this is not recommended as it is
+more cumbersome.
+
+We encourage you to keep your code blocks, printing statements, and
+final answers, as short as possible. In any case, there is a page limit
+of 6 pages per week, which encompasses the total length of this document
+which consists of the questions, your coding lines, and your answers.
+When your answers to questions of the respective week exceed this page
+limit, they will not be graded, resulting in zero points.
+
+Each week consists of 1, 2, or 3 subquestions. The total amount of
+points you can earn per week is 20 points.
+
+\section{Week 1}\label{week-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the dataset ``movies1.tsv'' on Canvas. Describe your data set:
+  How many observations does it have. How many variables are there? How
+  many subjects? What consists of a subject? \textbf{[4 points]}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{movies1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"movies1.tsv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{nrow}\NormalTok{(movies1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 505
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ncol}\NormalTok{(movies1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19
+\end{verbatim}
+
+\textbf{Your Answer:} The data set has 505 observations and 19
+variables. Each observation is one movie, so there is 505 subjects, and
+a subject is a single movie.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Which of the following types of variables are present in your data
+  set? (i) nominal; (ii) ordinal; (iii); interval; (iv) ratio. If
+  present, name one example of such a variable present in your data set.
+  \textbf{[4 points]}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(movies1[, }\FunctionTok{c}\NormalTok{(}\StringTok{"genre"}\NormalTok{, }\StringTok{"release\_month"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{, }\StringTok{"budget"}\NormalTok{)], }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 4
+##   genre    release_month release_date   budget
+##   <chr>            <dbl> <date>          <dbl>
+## 1 Thriller             5 2004-05-07   27000000
+## 2 Comedy              11 2015-11-26   15000000
+## 3 Comedy               1 2016-01-14   40000000
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+All four data types are present in the data set:
+
+\begin{itemize}
+\tightlist
+\item
+  Nominal: genre
+\item
+  Ordinal: release\_month
+\item
+  Interval: release\_date
+\item
+  Ratio: budget
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  A movie studio wants to know which types of movies give maximal
+  profit. Perform the following steps to provide the movie studio with
+  an analysis which corresponds to their request:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Create the variable profits as the revenue of a movie minus its
+  budget. Report its mean, median, maximum, and minimum.
+  \textbf{[2 points]}
+\item
+  Which movie has the highest profits in your data set and how much are
+  these profits. Which movie has the lowest and how much are its
+  profits? If multiple movies have the exact same highest or lowest
+  profits, give only one example. \textbf{[2 points]}
+\item
+  Create a boxplot of the variable profits. Make sure it has an
+  appropriate title, and appropriate titles and labels for the x- and
+  y-axis. Give Q1, Q2, Q3, and Q4. What does this tell you about the
+  nature of making money in the movies industry? \textbf{[2 points]}
+\item
+  Add a new variable to your data set the log of profits. When creating
+  this variable, what happens to movies for which profits is zero or
+  negative? What then happens when you calculate the mean of log of
+  profits? \textbf{[2 points]}
+\item
+  For movies that have a profit of zero or less, replace log of profits
+  with ``NA''. What is now the mean of log of profits? Create a boxplot
+  for log of profits, again with an appropriate title, x- and y-axis
+  labels. How does it compare to the boxplot you made under c.)?
+  \textbf{[2 points]}
+\item
+  Create a scatterplot of with the runtime of movies on the x-axis and
+  the average vote of movies on the y-axis. What do you conclude from
+  the scatterplot? Are movies with a longer runtime considered worse or
+  better by the audience, or does the audience not have a preference?
+  Why do you think this is the case? \textbf{[2 points]}
+\end{enumerate}
+
+For each step, you should provide first all the code you used to answer
+the question and then formulate an answer using full sentences.
+
+\emph{Step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+
+\NormalTok{movies1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"movies1.tsv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profits }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{revenue }\SpecialCharTok{{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{budget}
+
+\FunctionTok{mean}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 63121475
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1900000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{max}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2550965087
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{min}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -9e+07
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+After creating profits as revenue minus budget, the average profit
+across the 505 movies is \$63,121,475, but the median is only
+\$1,900,000. Profits range from a low of -\$90,000,000 (a loss) up to a
+high of \$2,550,965,087. The big gap between the mean and median already
+suggests the data is skewed, since a few really successful movies are
+dragging the average up while most movies make much less.
+
+\emph{Step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profit }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{revenue }\SpecialCharTok{{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{budget}
+
+\NormalTok{highest\_profit\_movie }\OtherTok{\textless{}{-}}\NormalTok{ movies1[}\FunctionTok{which.max}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profit), ]}
+\NormalTok{highest\_profit\_movie[, }\FunctionTok{c}\NormalTok{(}\StringTok{"title"}\NormalTok{, }\StringTok{"profit"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   title      profit
+##   <chr>       <dbl>
+## 1 Avatar 2550965087
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lowest\_profit\_movie }\OtherTok{\textless{}{-}}\NormalTok{ movies1[}\FunctionTok{which.min}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profit), ]}
+\NormalTok{lowest\_profit\_movie[, }\FunctionTok{c}\NormalTok{(}\StringTok{"title"}\NormalTok{, }\StringTok{"profit"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   title               profit
+##   <chr>                <dbl>
+## 1 Mighty Joe Young -90000000
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+The highest profit is Avatar, which has a profit of 2,550,965,087
+dollars The lowest profit is Mighty Joe Young, which has a loss of
+90,000,000 dollars
+
+\emph{Step c}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profit }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{revenue }\SpecialCharTok{{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{budget}
+\FunctionTok{quantile}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profit, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         0%        25%        50%        75%       100% 
+##  -90000000          0    1900000   60514050 2550965087
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(movies1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{""}\NormalTok{, }\AttributeTok{y =}\NormalTok{ profit)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{outlier.color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of Movie Profits"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Movies"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Profit"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\textbf{Your Answer:} Q1 = \$0, Q2 (median) = \$1,900,000, Q3 =
+\$60,514,050 and Q4 (maximum) = \$2,550,965,087. The movie industry is
+very high risk high reward, whilst most movies either break even or make
+a small profit, or a small loss, only a low amount of movies actually
+make a large profit
+
+\emph{Step d}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{logprofits }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in log(movies1$profits): NaNs produced
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits }\SpecialCharTok{==} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 113
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 116
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 229
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{logprofits)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NaN
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+Taking the log of profits gives -Inf for movies with zero profit and NaN
+for movies with a loss, since you can't take the log of zero or a
+negative number. This affects 229 of the 505 movies (113 with zero
+profit, 116 with a loss). Because of these values, the mean of
+logprofits also comes out as NaN.
+
+\emph{Step e}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profit }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{revenue }\SpecialCharTok{{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{budget}
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{log\_profit }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in log(movies1$profit): NaNs produced
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{log\_profit[movies1}\SpecialCharTok{$}\NormalTok{profit }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\NormalTok{mean\_log\_profit }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{log\_profit, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{mean\_log\_profit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.38094
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(movies1[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{log\_profit), ], }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{""}\NormalTok{, }\AttributeTok{y =}\NormalTok{ log\_profit)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"gray"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{outlier.color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of log{-}transformed movie profits"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Profitable movies"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Log of profit"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\textbf{Your Answer:}
+
+After setting log profits to NA for movies with zero or negative profit,
+the mean of log profits is 17.38. The boxplot in C had a lot of massive
+outliers, whilst this one is a bit more centered around its median. Plus
+the boxplot in C had a lot more movies, since we deleted all the once
+making a loss or breaking even.
+
+\emph{Step f}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{runtime, movies1}\SpecialCharTok{$}\NormalTok{vote\_average,}
+     \AttributeTok{main =} \StringTok{"Runtime vs Average Vote"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Runtime (minutes)"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"Average Vote"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{runtime, movies1}\SpecialCharTok{$}\NormalTok{vote\_average, }\AttributeTok{use =} \StringTok{"complete.obs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3211682
+\end{verbatim}
+
+This gives a correlation of about 0.32 between runtime and average vote.
+Looking at the scatterplot, most movies cluster between about 90 and 130
+minutes with average votes somewhere between 5 and 7.5, and there's a
+mild upward trend running through the cloud of points. Longer movies do
+tend to get slightly higher ratings on average, but the relationship is
+pretty weak, since a correlation of 0.32 means runtime only accounts for
+a small part of the variation in how movies get rated.
+
+So overall, audiences seem to have a slight preference for longer
+movies, but it's not a strong effect. A likely reason is that longer
+runtimes often go along with bigger productions, more developed stories,
+and higher budgets, things like epics or dramas that studios invest more
+time and money into tend to run longer, and that extra effort may
+translate into somewhat better reception.
+
+\section{Week 2}\label{week-2}
+
+1 Is your dataset movies1.tsv the full population, or is it a sample of
+a larger population? If the latter, how would you describe the full
+population? \textbf{[4 points]}
+
+\textbf{Your Answer:}
+
+It is a sample of a larger population, the full population would include
+every single movie made globally, and since this dataset only includes
+505 movies, it is a sample.
+
+2 a. For which actor in your data set do you observe the most movies?
+\textbf{[2 points]} b. What is the average revenue of the movie in which
+this actor plays and does the revenue lie above or below the revenue of
+an average movie according to your data set? \textbf{[2 points]}\\
+c.~How trustworthy do you consider your conclusion to answer 2b? Use the
+term ``law of large numbers'' in your explanation. \textbf{[2 points]}
+
+\emph{step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{ (dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(first\_actor)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(first\_actor, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   first_actor      n
+##   <chr>        <int>
+## 1 Bruce Willis     7
+\end{verbatim}
+
+\textbf{Your Answer:} The actor with the most movies (in this sample) is
+Bruce Willis who has 7 movies (in this sample).
+
+\emph{step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies\_bruce }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(movies1, first\_actor }\SpecialCharTok{==} \StringTok{"Bruce Willis"}\NormalTok{)}
+\NormalTok{Average\_revenue\_Bruce }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(movies\_bruce}\SpecialCharTok{$}\NormalTok{revenue, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{Average\_Revenue }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{revenue, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{Average\_revenue\_Bruce}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 116280090
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Average\_Revenue}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 94815482
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+The average revenue for a Bruce Willis film is 116,280,089.57 U.S.
+Dollars The average revenue for all the movies is 94,815,481.64 U.S.
+Dollars
+
+This means that the average Bruce Willis movie generates more revenue
+than the average movie from this sample.
+
+\emph{step c}
+
+\textbf{Your Answer:}
+
+It is not very trustworthy since this sample is only a small percentage
+of all movies made. According to the law of large numbers, the more
+movies you add to the sample, the closer you would get to the `true
+mean'. And since we are only analyzing 505 movies and 7 Bruce Willis
+movies, the possibility is very large that the answer is distorted.
+(e.g.~there could be one massive outlier which manipulates the outcome)
+
+3 For this question, you will assume that your data set is the full
+population.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Recode profits such that it is expressed in millions. What is the
+  variance of the variable profits (in millions) in your data set?
+  \textbf{[2 points]}
+\item
+  Create a new data set, called movies\_sample. Make sure that it is a
+  random sample of your data set of 25 movies. What is the variance of
+  profits in this random sample? How does it compare to the variance of
+  profits in 2a? \textbf{[2 points]}
+\item
+  In a for loop, create 100 different samples of 25 movies, as in b, and
+  estimate the variance within each sample. Save the variance of each
+  sample in a vector called sample\_vars. So the first position of the
+  vector would have the variance of the first sample, the second
+  position the variance of the second sample, etc. Print the start of
+  this vector. \textbf{[2 points]}
+\item
+  Summarize and make a histogram of sample\_vars. What is the mean,
+  standard deviation and shape of its distribution? \textbf{[2 points]}
+\item
+  In your opinion, is a sample of 25 movies sufficient to get a reliable
+  estimate of the population variance of profits, using the sample
+  variance? Explain? \textbf{[2 points]}
+\end{enumerate}
+
+\emph{step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profits }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{revenue }\SpecialCharTok{{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{budget}
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{profits\_millions }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{profits }\SpecialCharTok{/} \FloatTok{1e6} 
+
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(movies1)}
+\NormalTok{pop\_var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{profits\_millions, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ (n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\NormalTok{n }
+\NormalTok{pop\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30402.8
+\end{verbatim}
+
+\textbf{Your Answer:} After recoding profits into millions and treating
+the dataset as the full population, the population variance of profits
+is 30,402.8 (million dollars squared). This gives a standard deviation
+of about \$174 million, which is large compared to the mean profit of
+roughly \$63 million. This makes sense given the skewed nature of the
+data, since a small number of blockbuster movies like Avatar generate
+profits far above the typical movie, which pulls the variance up a lot.
+
+\emph{step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{movies\_sample}\OtherTok{\textless{}{-}}\NormalTok{ movies1[}\FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(movies1), }\DecValTok{25}\NormalTok{),]}
+
+\NormalTok{sample\_var }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(movies\_sample}\SpecialCharTok{$}\NormalTok{profits\_millions, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{sample\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5156.149
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+The variance of profits in the random sample of 25 movies is 5156.149
+(million dollars squared), which is much lower than the population
+variance of 30,402.8 found in 2a. This difference is likely because the
+profits distribution is highly skewed, with a small number of
+blockbuster movies driving up the variance in the full population. A
+sample of just 25 movies has a good chance of missing these extreme
+outliers entirely, which would make the sample variance look much
+smaller than the true population variance. This shows that with such a
+skewed variable, small samples can give quite unreliable estimates of
+the population variance, just by chance.
+
+\emph{step c}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
+\NormalTok{sample\_vars }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{) \{}
+\NormalTok{sample\_i }\OtherTok{\textless{}{-}}\NormalTok{ movies1[}\FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(movies1), }\DecValTok{25}\NormalTok{), ]  }
+\NormalTok{sample\_vars[i] }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(sample\_i}\SpecialCharTok{$}\NormalTok{profits\_millions, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{\}}
+\FunctionTok{head}\NormalTok{(sample\_vars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 20037.60 20651.72 51398.94 36983.01 18170.74 14105.60
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+The first six values are 20037.60, 20651.72, 51398.94, 36983.01,
+18170.74, and 14105.60. These values already show a lot of variation
+from sample to sample, which reflects how sensitive the variance
+estimate is to which movies happen to end up in a small sample of 25,
+especially given how skewed the underlying profits distribution is.
+
+\emph{step d}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{mean\_var }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sample\_vars)}
+\NormalTok{sd\_var }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(sample\_vars)}
+
+\NormalTok{mean\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 38329.65
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd\_var}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 68929.61
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_vars }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{sample\_vars =}\NormalTok{ sample\_vars)}
+
+\FunctionTok{ggplot}\NormalTok{(df\_vars, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ sample\_vars)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of sample variances"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"sample variances"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"frequency"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-14-1.pdf}}
+
+\textbf{Your Answer:}
+
+The mean of sample\_vars is about 38,330 and its standard deviation is
+about 68,930 (both in millions of dollars squared). The mean is in the
+same range as the population variance of 30,402.8, but not equal to it.
+The sample variance is an unbiased estimator, so with more repetitions
+the average would move closer to the population value. However, the
+standard deviation is more than twice the mean, which shows how much the
+estimates vary between samples. The histogram is strongly right skewed.
+Most samples have a variance well below the population variance (the
+median is only about 16,880), and a few samples that happen to include a
+blockbuster such as Avatar have extremely large variances (up to about
+284,000).
+
+\emph{step e}
+
+\textbf{Your Answer:}
+
+No, a sample size of 25 is not sufficient. This is because a single mega
+hit amongst those 25 can extremely influence the variance of the sample
+
+\section{Week 3}\label{week-3}
+
+For the next part of the assignment, assume that the movies in your data
+frame are a random sample of a larger population of movies.
+
+1
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Create a new data set that only includes movies that are of the genre
+  ``Thriller''. For these thriller movies, give a 99 percent confidence
+  interval for the variable \emph{runtime}. Interpret the result.
+  \textbf{[2 points]}
+\item
+  Now, assume that the variance of \emph{runtime} amongst thriller
+  movies in your data is exactly the same as the variance of
+  \emph{runtime} in the population. Under this assumption, give a 99
+  percent confidence interval for the variable \emph{runtime} among
+  thriller movies. Interpret the result. Is you confidence interval
+  wider or less wide than the one you found under question 1a? Why is
+  that the case? \textbf{[2 points]}
+\end{enumerate}
+
+\emph{step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{thrillers }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(movies1, genre }\SpecialCharTok{==} \StringTok{"Thriller"}\NormalTok{)}
+\NormalTok{xbar  }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(thrillers}\SpecialCharTok{$}\NormalTok{runtime, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{s     }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(thrillers}\SpecialCharTok{$}\NormalTok{runtime, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{n     }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(thrillers}\SpecialCharTok{$}\NormalTok{runtime))}
+\NormalTok{se    }\OtherTok{\textless{}{-}}\NormalTok{ s }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n)}
+\NormalTok{tcrit }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.995}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(xbar }\SpecialCharTok{{-}}\NormalTok{ tcrit }\SpecialCharTok{*}\NormalTok{ se, xbar }\SpecialCharTok{+}\NormalTok{ tcrit }\SpecialCharTok{*}\NormalTok{ se)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  99.94343 111.01042
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+We're 99\% confident the true mean runtime of all thriller movies lies
+between 99.94 and 111.01 minutes. The interval is centered on the sample
+mean of 105.48 minutes, based on the 65 thrillers in our data. Because
+the population variance is unknown, we estimate it with the sample
+variance and use the t distribution with 64 degrees of freedom. We do
+not need runtime itself to be normally distributed, since
+\(n = 65 \geq 30\), the central limit theorem tells us that the sample
+mean is approximately normal, so this interval is valid.
+
+\emph{step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zcrit }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.995}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(xbar }\SpecialCharTok{{-}}\NormalTok{ zcrit }\SpecialCharTok{*}\NormalTok{ se, xbar }\SpecialCharTok{+}\NormalTok{ zcrit }\SpecialCharTok{*}\NormalTok{ se)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100.1081 110.8457
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+The 99\% confidence interval is {[}100.11, 110.85{]}. Assuming the
+population variance is known, we are 99\% confident that the true mean
+runtime of all thriller movies lies between 100.11 and 110.85 minutes.
+This interval is narrower than the one in part a. Because the variance
+is now known, we no longer have the extra uncertainty from estimating it
+with the sample, so we use the z (normal) distribution instead of the t
+distribution. Its critical value is smaller (2.576 instead of 2.655),
+which gives a narrower interval. The difference is small because with n
+= 65 the t distribution is already very close to the normal
+distribution.
+
+2
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Using an appropriate five-step procedure, set up a test for the null
+  hypothesis that the variance of runtime equals \(500\). Clearly state
+  your null hypothesis, alternative hypothesis your test statistic, your
+  critical value, and your conclusion. \textbf{[2 points]}
+\item
+  For the validity of your test in 2a, what assumption about the
+  distribution of runtime needs to hold? Make an appropriate plot to
+  test this assumption. What do you conclude? \textbf{[2 points]}
+\end{enumerate}
+
+\emph{step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{runtime[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{runtime) }\SpecialCharTok{\&}\NormalTok{ movies1}\SpecialCharTok{$}\NormalTok{runtime }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{]}
+\NormalTok{n  }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x)}
+\NormalTok{s2 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(x)}
+\NormalTok{chi2 }\OtherTok{\textless{}{-}}\NormalTok{ (n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ s2 }\SpecialCharTok{/} \DecValTok{500}
+\NormalTok{crit }\OtherTok{\textless{}{-}} \FunctionTok{qchisq}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{), }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\NormalTok{pval }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{min}\NormalTok{(}\FunctionTok{pchisq}\NormalTok{(chi2, n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{), }\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pchisq}\NormalTok{(chi2, n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\FunctionTok{round}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n, }\AttributeTok{s2 =}\NormalTok{ s2, }\AttributeTok{chi2 =}\NormalTok{ chi2, }\AttributeTok{crit\_low =}\NormalTok{ crit[}\DecValTok{1}\NormalTok{], }\AttributeTok{crit\_high =}\NormalTok{ crit[}\DecValTok{2}\NormalTok{], }\AttributeTok{p =}\NormalTok{ pval), }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         n        s2      chi2  crit_low crit_high         p 
+##   502.000   439.178   440.057   440.874   564.914     0.047
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Hypotheses:} \(H_0: \sigma^2 = 500\) versus
+  \(H_1: \sigma^2 \neq 500\) (two-sided), with significance level
+  \(\alpha = 0.05\).
+\item
+  \textbf{Decision rule:} we use the sample variance \(s^2\). Because
+  the test is two sided, we reject \(H_0\) if \(s^2\) is much smaller or
+  much larger than 500, i.e.~if \(\chi^2\) falls below the lower or
+  above the upper critical value.
+\item
+  \textbf{Distribution:} under \(H_0\), \(\chi^2 = (n-1)s^2/\sigma_0^2\)
+  follows a \(\chi^2\) distribution with \(n-1\) degrees of freedom.
+  This requires runtime to be normally distributed in the population. We
+  removed one movie with a missing runtime and two with a runtime of 0,
+  which is not a real value, leaving \(n = 502\) movies and
+  \(n-1 = 501\) degrees of freedom.
+\item
+  \textbf{Computation:} \(s^2 = 439.18\), so
+  \(\chi^2 = 501 \cdot 439.18/500 = 440.06\). The critical values are
+  440.87 (lower) and 564.91 (upper), and the p value is 0.047.
+\item
+  \textbf{Decision:} \(\chi^2 = 440.06\) is below the lower critical
+  value and p = 0.047 \textless{} 0.05, so we reject \(H_0\). At the 5\%
+  level there is evidence that the population variance of runtime
+  differs from 500. The rejection is borderline, though, with the two
+  zero runtimes included we would not reject, so this result should be
+  read with care.
+\end{enumerate}
+
+\emph{step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(x, }\AttributeTok{breaks =} \DecValTok{40}\NormalTok{, }\AttributeTok{freq =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{main =} \StringTok{"Histogram of runtime"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Runtime (minutes)"}\NormalTok{)}
+\NormalTok{mu   }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x)}
+\NormalTok{sdev }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean =}\NormalTok{ mu, }\AttributeTok{sd =}\NormalTok{ sdev), }\AttributeTok{add =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{qqnorm}\NormalTok{(x, }\AttributeTok{main =} \StringTok{"Normal Q{-}Q plot of runtime"}\NormalTok{)}
+\FunctionTok{qqline}\NormalTok{(x, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-18-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Your Answer:}
+
+The \(\chi^2\) test for a variance is only valid if runtime is normally
+distributed in the population, and unlike tests on the mean it stays
+sensitive to this even in large samples. The histogram shows that
+runtime is not normal: it is right-skewed, with a long upper tail (up to
+276 minutes). In the Q-Q plot the points bend away from the line in both
+tails, most clearly in the upper tail. The normality assumption is
+therefore violated. The conclusion in 2a is that \(H_0\) was rejected
+because p = 0.047 \textless{} 0.05, but this p value comes from a test
+whose assumption doesn't hold, so there is no strong proof that the
+variance is different from 500.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  There is an argument going on in the movie studio. \emph{Bob} claims
+  that they should make higher-quality movies, as this will bring in
+  more profits. \emph{Chantal} disagrees. She tells Bob that mediocre
+  movies bring in the most profits. You are asked to advise on who is
+  right.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Create a new variable called vote\_average\_rounded. Make sure this
+  variable is the same as vote\_average, but without any decimals (i.e.,
+  a 6.3 becomes a 6, a 8.7 an 8, etc.). Display a histogram of
+  vote\_average\_rounded. \textbf{[2 points]}
+\item
+  Create a scatter plot with vote\_average\_rounded on the x axis and
+  the mean of profits within each category of vote\_average\_rounded on
+  the y-axis. Make sure it has an appropriate title, and appropriate
+  titles and labels for the x- and y-axis. At which rating of movies are
+  profits the highest? \textbf{[3 points]}
+\item
+  Recreate the scatter plot with year on the x axis and mean\_profits on
+  the y-axis, but now add bars around each point, indicating the 95\%
+  confidence interval. \textbf{[3 points]}
+\item
+  Write an advice to settle the argument between Bob and Chantal.
+  \textbf{[4 points]}
+\end{enumerate}
+
+\emph{step a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies1}\SpecialCharTok{$}\NormalTok{vote\_average\_rounded }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{vote\_average)}
+\FunctionTok{hist}\NormalTok{(movies1}\SpecialCharTok{$}\NormalTok{vote\_average\_rounded, }\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{10.5}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{),}
+     \AttributeTok{main =} \StringTok{"Histogram of rounded{-}down vote average"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Vote average (rounded down)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Number of movies"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-19-1.pdf}}
+
+\textbf{Your Answer:}
+
+We used floor() instead of round(), so decimals are simply cut off. For
+example, a 6.7 becomes 6, not 7. Looking at the results, most movies
+land in the middle, with 222 rated 6 and 142 rated 5. After that, 83
+movies at 7 and 36 at 4. Top scores are rare, only 5 movies reach an 8,
+and not a single one gets a 9 or 10. The 8 movies with a rating of 0 all
+have zero votes, so that 0 doesn't mean they're terrible. It just means
+nobody rated them.
+
+\emph{step b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_profits }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(profits }\SpecialCharTok{\textasciitilde{}}\NormalTok{ vote\_average\_rounded, }\AttributeTok{data =}\NormalTok{ movies1, }\AttributeTok{FUN =}\NormalTok{ mean)}
+\FunctionTok{plot}\NormalTok{(mean\_profits}\SpecialCharTok{$}\NormalTok{vote\_average\_rounded, mean\_profits}\SpecialCharTok{$}\NormalTok{profits }\SpecialCharTok{/} \FloatTok{1e6}\NormalTok{, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{"Mean profit by movie rating"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Vote average (rounded down)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Mean profit (millions of $)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-20-1.pdf}}
+
+\textbf{Your Answer:}
+
+Mean profits are highest for movies rated 8, at about \$168.7 million,
+followed by movies rated 7 (\$144.1 million). Profits rise steadily from
+rating 4 onwards, movies rated 4 make about \$11.8 million, and movies
+rated 5 and 6 make on average \$43.1 and \$56.5 million. One thing worth
+mentioning is that movies with a rating of 3 lose money, about \$2.9
+million on average.
+
+\emph{step c}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ci }\OtherTok{\textless{}{-}} \FunctionTok{do.call}\NormalTok{(data.frame, }\FunctionTok{aggregate}\NormalTok{(profits }\SpecialCharTok{\textasciitilde{}}\NormalTok{ vote\_average\_rounded, }\AttributeTok{data =}\NormalTok{ movies1,}
+        \AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(v) }\FunctionTok{c}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(v), }\AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(v), }\AttributeTok{n =} \FunctionTok{length}\NormalTok{(v))))}
+\FunctionTok{names}\NormalTok{(ci) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"rating"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"n"}\NormalTok{)}
+\NormalTok{ci}\SpecialCharTok{$}\NormalTok{lower }\OtherTok{\textless{}{-}}\NormalTok{ (ci}\SpecialCharTok{$}\NormalTok{mean }\SpecialCharTok{{-}} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, ci}\SpecialCharTok{$}\NormalTok{n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ ci}\SpecialCharTok{$}\NormalTok{sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(ci}\SpecialCharTok{$}\NormalTok{n)) }\SpecialCharTok{/} \FloatTok{1e6}
+\NormalTok{ci}\SpecialCharTok{$}\NormalTok{upper }\OtherTok{\textless{}{-}}\NormalTok{ (ci}\SpecialCharTok{$}\NormalTok{mean }\SpecialCharTok{+} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, ci}\SpecialCharTok{$}\NormalTok{n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ ci}\SpecialCharTok{$}\NormalTok{sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(ci}\SpecialCharTok{$}\NormalTok{n)) }\SpecialCharTok{/} \FloatTok{1e6}
+\NormalTok{ci}\SpecialCharTok{$}\NormalTok{mean  }\OtherTok{\textless{}{-}}\NormalTok{ ci}\SpecialCharTok{$}\NormalTok{mean }\SpecialCharTok{/} \FloatTok{1e6}
+\FunctionTok{plot}\NormalTok{(ci}\SpecialCharTok{$}\NormalTok{rating, ci}\SpecialCharTok{$}\NormalTok{mean, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{, }\AttributeTok{ylim =} \FunctionTok{range}\NormalTok{(}\FunctionTok{c}\NormalTok{(ci}\SpecialCharTok{$}\NormalTok{lower, ci}\SpecialCharTok{$}\NormalTok{upper)),}
+     \AttributeTok{main =} \StringTok{"Mean profit by movie rating with 95\% confidence intervals"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Vote average (rounded down)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Mean profit (millions of $)"}\NormalTok{)}
+\FunctionTok{arrows}\NormalTok{(ci}\SpecialCharTok{$}\NormalTok{rating, ci}\SpecialCharTok{$}\NormalTok{lower, ci}\SpecialCharTok{$}\NormalTok{rating, ci}\SpecialCharTok{$}\NormalTok{upper, }\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{code =} \DecValTok{3}\NormalTok{, }\AttributeTok{length =} \FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment14_files/Assignment14_files/figure-latex/unnamed-chunk-21-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(ci[, }\FunctionTok{c}\NormalTok{(}\StringTok{"rating"}\NormalTok{, }\StringTok{"n"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"lower"}\NormalTok{, }\StringTok{"upper"}\NormalTok{)], }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   rating   n  mean  lower upper
+## 1      0   8   0.0    0.0   0.0
+## 2      2   4   0.2   -1.1   1.6
+## 3      3   5  -2.9   -8.7   3.0
+## 4      4  36  11.8   -0.3  23.9
+## 5      5 142  43.1   23.7  62.6
+## 6      6 222  56.5   40.1  72.9
+## 7      7  83 144.1   72.9 215.3
+## 8      8   5 168.7 -231.6 569.1
+\end{verbatim}
+
+\textbf{Your Answer:}
+
+We read ``year'' in the question as vote\_average\_rounded, since the
+question asks us to recreate the plot from 3b. For ratings 5 and 6 the
+intervals are fairly narrow (\$23.7--62.6 million and \$40.1--72.9
+million), which makes sense because these groups contain the most
+movies. Rating 7 is the most interesting, its interval runs from \$72.87
+to \$215.3 million, which sits entirely above the interval for rating 5
+and only barely overlaps with the one for rating 6 (which ends at
+\$72.89 million). Finally, the interval for rating 8 is huge (--\$231.6
+to \$569.1 million) because it's based on just 5 movies, so we can't put
+much trust in its high mean. The interval even dips into negative
+values, so we can't be sure these movies are profitable on average at
+all. More generally, these t-intervals rely on the central limit
+theorem, which needs roughly 30 or more observations per group. Ratings
+0, 2, 3 and 8 contain only 8, 4, 5 and 5 movies, and profits are very
+right skewed, so the intervals for these groups are not reliable.
+
+\emph{step d}
+
+\textbf{Your Answer:}
+
+The data support Bob rather than Chantal. Mediocre movies (ratings 5--6)
+earn on average \$43--56 million, while good movies rated 7 earn about
+\$144 million. The 95\% confidence interval for rating 7 lies entirely
+above the one for rating 5 and only barely overlaps with the one for
+rating 6 (which ends at \$72.89 million). Movies rated 8 have the
+highest mean profit, but with only 5 such movies this estimate is too
+uncertain to rely on. There is no evidence that mediocre movies are the
+most profitable.
+
+That said, Chantal has a point if she means total profit, because most
+movies are mediocre, ratings 5--6 together bring in about \$18.7
+billion, compared with about \$12.0 billion for rating 7 (mean × number
+of movies from the table in 3c). But this only reflects how many
+mediocre movies are made. Per movie, a rating 7 film earns more than
+twice as much, and that is what matters when the studio decides what
+kind of movie to make next.
+
+We would still add two caveats. First, this is a correlation, not proof
+that quality causes profit, better rated movies may also have bigger
+budgets, famous casts, franchises or more marketing, and popular movies
+may attract higher ratings rather than the other way around. Second,
+many movies in the data have a budget or revenue of 0, which is probably
+missing data and distorts the profit figures. Our advice is that the
+studio should aim for well received (7+) movies, and confirm the effect
+of quality with an analysis that controls for budget and genre.
+
+\end{document}

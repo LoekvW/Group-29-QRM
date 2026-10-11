@@ -1,0 +1,4 @@
+"0","movies1$vote_average_rounded <- floor(movies1$vote_average)"
+"0","hist(movies1$vote_average_rounded, breaks = seq(-0.5, 10.5, by = 1),"
+"0","     main = ""Histogram of rounded-down vote average"","
+"0","     xlab = ""Vote average (rounded down)"", ylab = ""Number of movies"")"

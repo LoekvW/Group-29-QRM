@@ -1,0 +1,1 @@
+"0","head(movies1[, c(""genre"", ""release_month"", ""release_date"", ""budget"")], 3)"

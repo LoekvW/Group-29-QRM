@@ -1,0 +1,4 @@
+"0","movies1$profit <- movies1$revenue - movies1$budget"
+"0",""
+"0","highest_profit_movie <- movies1[which.max(movies1$profit), ]"
+"0","highest_profit_movie[, c(""title"", ""profit"")]"
