@@ -1,4 +1,0 @@
-"0","mean_profits <- aggregate(profits ~ vote_average_rounded, data = movies1, FUN = mean)"
-"0","plot(mean_profits$vote_average_rounded, mean_profits$profits / 1e6, pch = 19,"
-"0","     main = ""Mean profit by movie rating"","
-"0","     xlab = ""Vote average (rounded down)"", ylab = ""Mean profit (millions of $)"")"

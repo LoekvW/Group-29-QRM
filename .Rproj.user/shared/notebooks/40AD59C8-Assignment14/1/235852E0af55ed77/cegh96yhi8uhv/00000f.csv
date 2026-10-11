@@ -1,3 +1,0 @@
-"0","par(mfrow = c(1, 2))"
-"0","hist(x, breaks = 40, freq = FALSE, main = ""Histogram of runtime"","
-"0","     xlab = ""Runtime (minutes)"")"

@@ -1,7 +1,0 @@
-"0","#WRITE YOUR CODE HERE"
-"0","clean_data <- movies1 %>% filter(profit > 0 & budget > 0)"
-"0","clean_data$log_profit <- log(clean_data$profit)"
-"0","clean_data$log_budget <- log(clean_data$budget)"
-"0","model <- lm(log(profit) ~ log(budget) + english + release_month, data = movies1)"
-"2","Error in eval(predvars, data, env) : object 'english' not found
-"

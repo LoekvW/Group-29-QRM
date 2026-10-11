@@ -1,5 +1,0 @@
-"0","library (dplyr)"
-"0","movies1 %>%"
-"0","  filter(!is.na(first_actor)) %>%"
-"0","  count(first_actor, sort = TRUE) %>%"
-"0","  head(1)"

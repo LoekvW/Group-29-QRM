@@ -1,3 +1,0 @@
-"0",""
-"0","lowest_profit_movie <- movies1[which.min(movies1$profit), ]"
-"0","lowest_profit_movie[, c(""title"", ""profit"")]"

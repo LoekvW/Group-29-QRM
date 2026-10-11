@@ -1,5 +1,0 @@
-"0",""
-"0","plot(movies1$runtime, movies1$vote_average,"
-"0","     main = ""Runtime vs Average Vote"","
-"0","     xlab = ""Runtime (minutes)"","
-"0","     ylab = ""Average Vote"")"
