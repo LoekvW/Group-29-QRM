@@ -1,0 +1,3 @@
+"0","mu   <- mean(x)"
+"0","sdev <- sd(x)"
+"0","curve(dnorm(x, mean = mu, sd = sdev), add = TRUE, col = ""red"", lwd = 2)"

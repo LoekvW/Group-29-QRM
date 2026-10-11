@@ -3,7 +3,7 @@
     "path": "~/GitHub/Group-29-QRM/Assignment14.Rmd",
     "project_path": "Assignment14.Rmd",
     "type": "r_markdown",
-    "hash": "3664703801",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1791751380862.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "796,0",
-        "scrollLine": "870",
-        "last_setup_crc32": ""
+        "cursorPosition": "948,57",
+        "scrollLine": "942",
+        "last_setup_crc32": "63db27bebb338d19"
     },
     "folds": "",
-    "lastKnownWriteTime": 1791752091,
+    "lastKnownWriteTime": 1791752737,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1791752091,
+    "last_content_update": 1791752737206,
     "read_only": false,
     "read_only_alternatives": []
 }

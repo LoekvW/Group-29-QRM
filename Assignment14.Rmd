@@ -825,112 +825,99 @@ g.  Who do you think is correct? Bob or Chantal? What would you advise
     the movie studio to do? \textbf{[2 points]}
 
 *step a*
-
+ 
 ```{r}
 model_chantal <- lm(profit ~ budget, data = movies1)
-
+ 
 summary(model_chantal)
-
+ 
 ```
-
-**Your Answer:** The claim that every dollar spend on movie production
-is more than offset by the increase in movie profits can be tested using
-this hypothesis: H0: β1 ≤ 1, H1: β1 \> 1
-
+ 
+**Your Answer:**
+We estimate $\text{Profits}_i = \beta_0 + \beta_1 \text{Budget}_i + \varepsilon_i$. Because profit is revenue minus budget, the cost of each dollar spent is already subtracted. So Chantal's claim that every dollar spent is more than offset means that profits still rise when the budget rises, i.e. $\beta_1 > 0$. This gives $H_0: \beta_1 \leq 0$ and $H_1: \beta_1 > 0$.
+ 
 *step b*
-
+ 
 ```{r}
-
-
+ 
+coef(model_chantal)["budget"]
+ 
 ```
-
+ 
 **Your Answer:**
-
-Looking at the output of question a, you can see under estimated std and
-budget that the coefficient/slope for the Beta 1 is equal to 3.547. You
-can interpret this as for every single dollar spend on the budget for
-the movie, the profits will increase by 3.547 dollars.
-
+ 
+The estimated value of $\beta_1$ is 2.547. This means that, on average, every extra dollar spent on a movie's budget is associated with an increase in profits of about \$2.55. Since profit is revenue minus budget, this corresponds to about \$3.55 of extra revenue per dollar of budget. This is an association, not necessarily a causal effect, bigger budget movies may also differ in other ways, such as franchises, famous casts or marketing.
+ 
 *step c*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+t_val <- summary(model_chantal)$coefficients["budget", "t value"]
+qt(0.05, df = 503)
+pt(t_val, df = 503)
+pt(t_val, df = 503, lower.tail = FALSE)
+ 
 ```
-
+ 
 **Your Answer:**
-
-H0: Beta1 ≥ 0, H1: Beta1 \< 0. For the test statistic we use t-value,
-which is equal to 27.248 and the p value is 2 x 10\^-16, whilst for the
-one sided p-value for H0 it is equal to 1. since beta1 is equal to 3.547
-which is positive we do not reject H0 for any significance level.
-
+ 
+H0: beta1 >= 0 versus H1: beta1 < 0 (one-sided, alpha = 0.05). The test statistic is t = 2.547 / 0.130 = 19.57 with 503 degrees of freedom. The critical value is -1.648. Since 19.57 > -1.648 and the one sided p value is approximately 1, we do not reject H0. Testing Chantal's claim instead (H0: beta1 <= 0), the one sided p value is practically 0, so beta1 is significantly positive.
+ 
 *step d*
-
-```{r}
-
+ 
+```{r, warning=FALSE}
+ 
 movies1$log_budget <- log(movies1$budget)
 movies1$log_budget[movies1$budget == 0 | movies1$revenue == 0] <- NA
-
+ 
 movies1$log_profit <- log(movies1$profit)
 movies1$log_profit[movies1$budget == 0 | movies1$revenue == 0 | movies1$profit <= 0] <- NA
-
+ 
 model_log <- lm(log_profit ~ log_budget, data = movies1)
-
-
+ 
+ 
 summary(model_log)
-
-
-
+ 
+ 
+ 
 ```
-
+ 
 **Your Answer:**
-
-No answer needed, only the code is necessary.
-
+ 
+Log budget and log profits are set to NA for movies with a budget or revenue of zero (181 movies), and also for the 69 movies with zero or negative profit, because the log of zero or a negative number does not exist. The model is estimated on the remaining 255 movies: $\widehat{\log(\text{Profits})} = 6.120 + 0.673 \log(\text{Budget})$.
+ 
 *step e*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+coef(model_log)["log_budget"]
+ 
 ```
-
+ 
 **Your Answer:**
-
-in a log regression model, the coefficient represents elasticity. In
-this example the value for Beta1 is 0.9207, which means that for a 1%
-change in budget, the profit will increase by approximately 0.921%
-
+ 
+The estimated value of $\beta_1$ is 0.673. In a log-log model the coefficient is an elasticity, a 1% increase in budget is associated with an increase in profits of about 0.67%, on average. Because 0.673 < 1, profits grow less than proportionally with the budget. Note that this model only uses the 255 movies with a positive profit, so it says nothing about the movies that made a loss.
+ 
 *step f*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+summary(model_chantal)$r.squared
+summary(model_log)$r.squared
+ 
 ```
-
+ 
 **Your Answer:**
-
-The level-level has the higher R\^2, so i would choose this one. R\^2
-represents the relevance of the model, and since the level-level model
-has the higher R\^2 and the higher adjusted R\^2, this is the clear
-choice
-
+ 
+The level-level model has a higher R squared (0.432 versus 0.320), so based on R squared it fits better. However, the comparison is not perfect, because the models have different dependent variables and samples (505 versus 255 movies), and the level-level fit is strongly influenced by outliers such as Avatar.
+ 
 *step g*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+ 
+ 
 ```
-
+ 
 **Your Answer:**
-
-Chantal is correct, since the level-level model is the better fit we
-will look at that model. In this model you can see that beta1 is equal
-to 3.547, which means that for every single dollar that is put into the
-budget of the movie, the profit will increase by \$3.547. Since 3.547 \>
-1, that means that putting more money on the budget of the movie is a
-profitable idea.
-
+ 
+The data support Chantal: every extra dollar of budget is associated with about 2.55 dollars of extra profit, and this effect is significantly positive. The log-log model agrees (a 1% higher budget gives about 0.67% higher profits). However, this is not necessarily causal, since b1 may suffer from omitted variable bias (for example franchises, famous casts or marketing). We advise the studio not to cut budgets, but to keep investing in productions with a strong commercial case.
 2
 
 a.  Make a plot with a 95% confidence interval with the mean log of
@@ -948,37 +935,53 @@ c.  Now, have a close look at your data frame. Can you find any
     coefficient you estimated under 2b? \textbf{[2 points]}
 
 *step a*
-
-```{r}
-#WRITE YOUR CODE HERE
-
+ 
+```{r, fig.height=3, fig.width=5}
+movies1$log_budget2 <- ifelse(movies1$budget > 0, log(movies1$budget), NA)
+gen <- subset(movies1, !is.na(first_actor_gender) & !is.na(log_budget2))
+ci2 <- do.call(data.frame, aggregate(log_budget2 ~ first_actor_gender, data = gen,
+         FUN = function(v) c(mean = mean(v), sd = sd(v), n = length(v))))
+names(ci2) <- c("gender", "mean", "sd", "n")
+ci2$lower <- ci2$mean - qt(0.975, ci2$n - 1) * ci2$sd / sqrt(ci2$n)
+ci2$upper <- ci2$mean + qt(0.975, ci2$n - 1) * ci2$sd / sqrt(ci2$n)
+plot(1:2, ci2$mean, pch = 19, xlim = c(0.5, 2.5), ylim = range(c(ci2$lower, ci2$upper)),
+     xaxt = "n", main = "Mean log budget by gender of first actor (95% CI)",
+     xlab = "Gender of first actor", ylab = "Mean log budget")
+axis(1, at = 1:2, labels = ci2$gender)
+arrows(1:2, ci2$lower, 1:2, ci2$upper, angle = 90, code = 3, length = 0.05)
+ci2
+ 
 ```
-
+ 
 **Your Answer:**
-
-Write your formulated response here.
-
+ 
+We use only movies with a positive budget and a known gender of the first actor (91 female, 264 male). The mean log budget is 16.54 for movies with a female first actor (95% CI: 16.25 to 16.84) and 16.86 for movies with a male first actor (95% CI: 16.59 to 17.13). Movies with a male lead have a slightly higher average budget, but the two confidence intervals overlap, so there is no clear evidence of a difference in budgets between male and female first actors.
+ 
 *step b*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+gen$male <- ifelse(gen$first_actor_gender == "male", 1, 0)
+model_gender <- lm(log_budget2 ~ male, data = gen)
+summary(model_gender)
+ 
 ```
-
+ 
 **Your Answer:**
-
-Write your formulated response here.
-
+ 
+The estimated model is log(budget) = 16.54 + 0.323 * FirstActorMale. The coefficient b1 = 0.323 means that movies with a male first actor have on average a log budget that is 0.323 higher, which is roughly 32% higher budgets than movies with a female first actor. However, b1 is not significantly different from zero, t = 1.30 and p = 0.194 > 0.05, so we do not reject H0: beta1 = 0. This matches our conclusion in 2a: the intercept (16.54) is the mean log budget for female first actors, b1 is the difference between the two group means (16.86 - 16.54), and just as the confidence intervals in 2a overlapped, the regression finds no significant difference. In addition, some budgets are clearly wrong (for example 2 and 10 dollars), which are outliers that pull down the mean log budget of male-led movies and also bias the estimate.
+ 
 *step c*
-
+ 
 ```{r}
-#WRITE YOUR CODE HERE
-
+check <- c("Taylor Kitsch", "Jackie Chan", "Jean Reno", "Cuba Gooding",
+           "Blake Lively", "Cameron Diaz", "Dakota Fanning", "Carey Mulligan")
+as.data.frame(subset(movies1, first_actor %in% check)[, c("title", "first_actor", "first_actor_gender")])
+ 
 ```
-
+ 
 **Your Answer:**
-
-Write your formulated response here.
+ 
+Yes, for example Taylor Kitsch, Jackie Chan and Jean Reno are labelled as female, while Blake Lively, Cameron Diaz and Dakota Fanning are labelled as male. This means FirstActorMale is measured with error. As shown in the lecture, measurement error in X biases b1 towards zero, so the true difference in budgets may be larger than our estimate of 0.323.
 
 # Week 5
 

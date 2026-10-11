@@ -1,0 +1,7 @@
+"0","#WRITE YOUR CODE HERE"
+"0","p_val <- summary(model)$coefficients[""release_month"", ""Pr(>|t|)""]"
+"0","print(p_val)"
+"1","[1]"
+"1"," 0.5677325"
+"1","
+"
